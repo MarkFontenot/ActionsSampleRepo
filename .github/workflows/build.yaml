@@ -1,0 +1,76 @@
+name: 20S-PA02-AutoIndexer
+
+on: [push]
+
+env:
+  EXE_NAME: AutoIndexer
+  ### ***** Students!  Put the name of the input files and output files here.
+  ###   List them in the order that they need to appear in Argv param of main.
+  ###   Output Files will follow input files
+  ###   Note: These should be the actual names of the files.  No double quotes
+  INPUT_FILES: input01.txt input02.txt
+  OUTPUT_FILES: output01.txt
+
+jobs:
+  build:
+    name: Project_Building
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+
+    steps:
+
+      - name: Checkout project repo from GitHub
+        uses: actions/checkout@v1
+
+      - name: Executable name Environment Variable Check
+        run: |
+          echo $EXE_NAME
+          echo " "
+          echo ${{runner.workspace}}
+          echo " "
+          echo $GITHUB_WORKSPACE
+          echo " "
+          g++ --version
+          cmake --version
+
+      - name: Create build environment
+        #run: cmake -E make_directory ${{runner.workspace}}/build
+        run:  mkdir ${{runner.workspace}}/build
+
+      - name: Configure the build
+        # Use a bash shell so we can use the same syntax for environment variable
+        # access regardless of the host operating system
+        shell: bash
+        working-directory: ${{runner.workspace}}/build
+        run: cmake $GITHUB_WORKSPACE -DCMAKE_BUILD_TYPE=$BUILD_TYPE
+
+      - name: Build the project
+        working-directory: ${{runner.workspace}}/build
+        shell: bash
+        # Execute the build.  You can specify a specific target with "--target <NAME>"
+        run: cmake --build . --config $BUILD_TYPE
+
+      - name: List contents of build directory
+        run: ls -al ${{runner.workspace}}/build
+
+      - name: Run the project
+        working-directory: ${{runner.workspace}}/build
+        shell: bash
+        run: ./$EXE_NAME $INPUT_FILES $OUTPUT_FILES
+
+      - name: Copy output files to artifact directory
+        working-directory: ${{runner.workspace}}/build
+        run: |
+          mkdir artifacts
+          for f in $OUTPUT_FILES
+          do
+            echo "  Copying $f"
+            cp $f artifacts/
+          done
+        
+      - name: Upload output files to GitHub so they can be reviewed
+        uses: actions/upload-artifact@v1
+        with:
+          name: project_output
+          path: ${{runner.workspace}}/build/artifacts
+      
