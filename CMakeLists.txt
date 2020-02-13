@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.14)
 project(20S-PA02-AutoIndexer)
-set (EXE_NAME SentimentAnalyzer)
+set (EXE_NAME AutoIndexer)
 
 ##########################################
 # Students, edit the items below.  In the quotes,
@@ -24,4 +24,4 @@ foreach(file IN LISTS input01 input02 input03)
 endforeach()
 
 set(CMAKE_CXX_STANDARD 17)
-add_executable(${EXE_NAME} main.cpp)
+add_executable(${EXE_NAME} main.cpp DSVector.cpp DSVector.h)
