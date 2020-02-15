@@ -13,16 +13,22 @@ private:
     int cap;
     void resize();
 public:
-    DSVector();
-    DSVector(const DSVector&);
+    DSVector<T>();
+    DSVector<T>(const DSVector&);
     ~DSVector();
     //include copy constructor
     //include destructor
     //include assignment operator
     bool operator <(const DSVector<T> & r) const;
+    DSVector &operator=(const DSVector<T> &);//assignment operator
+
     T operator[](int);
     void append(T);
     int getSize();
+    void clear();
+    bool isEmpty();
+    bool find(T);
+
 
     //sort
     //binary search
@@ -30,5 +36,116 @@ public:
 
 };
 
+template <class T>
+DSVector<T>::DSVector() {
+    data = new T[10];
+    cap = 10;
+    size = 0;
+}
 
+template <class T>
+int DSVector<T>::getSize(){
+    return size;
+}
+
+
+template <class T>
+DSVector<T>::DSVector(const DSVector<T> & input) {
+    data = new T[input.getSize()];
+    for(int x = 0; x < size; x++){
+        data[x] = input.data[x];
+    }
+}
+
+template <class T>
+DSVector<T>& DSVector<T>::operator=(const DSVector<T> & input) {
+    delete[] data;
+    data = new T[input.cap];
+    for(int x = 0; x < input.size; x++){
+        data[x] = input.data[x];
+    }
+    size = input.size;
+    cap = input.cap;
+    return *this;
+}
+
+template <class T>
+bool DSVector<T>::isEmpty(){
+    if(size == 0){
+        return true;
+    }else{
+        return false;
+    }
+}
+
+template <class T>
+DSVector<T>::~DSVector() {
+    //if(size != 0){
+    delete [] data;
+    //}
+}
+
+template <class T>
+bool DSVector<T>::operator<(const DSVector<T> & r) const {
+    if(!data[0] < r.data){
+        return false;
+    }else{
+        return true;
+    }
+}
+
+
+template <class T>
+void DSVector<T>::append(T x) {
+    if(size == cap){
+        resize();
+        data[size] = x;
+    }else{
+        data[size] = x;
+    }
+    size += 1;
+}
+
+template <class T>
+void DSVector<T>::clear() {
+    delete [] data;
+    data = new T[10];
+    cap = 10;
+    size = 0;
+}
+
+
+template <class T>
+T DSVector<T>::operator[](int x) {
+    //if the index requested is larger than the char array return the last element of the array
+    if(cap < x){
+        return data[cap];
+    }else{
+        return data[x];
+    }
+
+}
+
+template <class T>
+bool DSVector<T>::find(T input) {
+    for(int x = 0; x < size; x++){
+        if(data[x] == input){
+            return true;
+        }
+    }
+    return false;
+}
+
+
+//private
+template <class T>
+void DSVector<T>::resize(){
+    T * temp = new T[cap * 2];
+    for(int i = 0; i < cap; i++){
+        temp[i] = data[i];
+    }
+    cap *= 2;
+    delete [] data;
+    data = temp;
+}
 #endif //INC_20S_PA02_AUTOINDEXER_DSVECTOR_H

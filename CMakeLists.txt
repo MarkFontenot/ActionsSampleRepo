@@ -11,8 +11,8 @@ set (EXE_NAME AutoIndexer)
 #   set (input02 "train_target.csv")
 # etc....
 # if you need more, add them here and in the foreach stmt below.
-set (input01 "")
-set (input02 "")
+set (input01 "bookInput.txt")
+set (input02 "wordsInput.txt")
 set (input03 "")
 
 #
@@ -24,4 +24,4 @@ foreach(file IN LISTS input01 input02 input03)
 endforeach()
 
 set(CMAKE_CXX_STANDARD 17)
-add_executable(${EXE_NAME} main.cpp DSVector.cpp DSVector.h)
+add_executable(${EXE_NAME} main.cpp DSVector.h DSString.cpp DSString.h)
