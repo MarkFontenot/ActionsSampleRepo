@@ -1,9 +1,355 @@
+The Project Gutenberg eBook, The Philadelphia Housewife, by Mary Hodgson
+
+
+This eBook is for the use of anyone anywhere in the United States and most
+other parts of the world at no cost and with almost no restrictions 
+whatsoever.  You may copy it, give it away or re-use it under the terms of
+the Project Gutenberg License included with this eBook or online at 
+www.gutenberg.org.  If you are not located in the United States, you'll have
+to check the laws of the country where you are located before using this ebook.
+
+
+
+
+Title: The Philadelphia Housewife
+       or, Family Receipt Book
+
+
+Author: Mary Hodgson
+
+
+
+Release Date: August 16, 2016  [eBook #52815]
+
+Language: English
+
+Character set encoding: UTF-8
+
+
+***START OF THE PROJECT GUTENBERG EBOOK THE PHILADELPHIA HOUSEWIFE***
+
+
+E-text prepared by Wayne Hammond and the Online Distributed Proofreading
+Team (http://www.pgdp.net) from page images generously made available by
+Internet Archive (https://archive.org)
+
+
+
+Note: Images of the original pages are available through
+      Internet Archive. See
+      https://archive.org/details/philadelphiahous00hodg
+
+
+Transcriber's note:
+
+      Text enclosed by underscores is in italics (_italics_).
+
+
+
+
+
+THE PHILADELPHIA HOUSEWIFE,
+
+Or,
+
+Family Receipt Book.
+
+by
+
+AUNT MARY.
+
+
+
+
+
+
+
+[Illustration]
+
+Philadelphia:
+J. B. Lippincott & Co.
+1855.
+
+
+Entered according to the Act of Congress, in the year 1855,
+By J. P. Lippincott & Co.,
+In the Clerkâ€™s Office of the District Court, in and for the
+Eastern District of Pennsylvania.
+
+
+
 <1>
-Advanced Data Structures and Algorithm Implementation is a new exciting text from Mustang Publishers aimed at upper division undergraduate courses or introductory graduate courses. <2>
-Some of the topics covered are:
-* Fast String Matching
-* B+ Tree Implementation
-* A* Graph Traversal
+PREFACE.
+
+
+As the health of a family depends more upon the quality of their
+food than upon any other cause whatever, it is a public benefaction
+to give good advice upon this subject. That this advice may be most
+widely beneficial, it should have reference to the material and the
+preparation of food; and in both these respects, regard should be had
+to economy. The rich, who are able to provide the most choice and
+expensive articles of diet, frequently fail in having them prepared
+for the table in an agreeable and healthful manner; and the poor, and
+even those in moderate circumstances, are not only not generally well
+informed as to healthful and nutritious articles of food, which may be
+purchased at moderate expense, but when procured, they more generally
+err in the healthful preparation of them, mistaking high seasoning and
+rich mixtures for delicious and wholesome food. It is to aid the family
+in procuring and preparing their food according to their means, and
+with a view to elegance, taste, and health, that the authoress of this
+book has been induced to publish these receipts and the accompanying
+advice and reflections. She does this at the solicitation of many heads
+of families, and with the confidence of knowledge founded on long
+personal experience. This is the only source of reliable knowledge on
+the subject of procuring and preparing healthful food, in good taste,
+and with elegance and economy.
+
+But proper materials may be obtained for food, and the cook may
+understand how to prepare them; yet she will fail if she does not have
+the kitchen furnished with proper articles for culinary purposes. Each
+of these articles should be kept in its proper place, and scrupulously
+clean, while every thing should be done with exactness, and at the
+proper time.
+
+The authoress has the greatest confidence that the circulation of this
+book will promote elegance and comfort in wealthy families, and economy
+and health in families of moderate means.
+
+
+
+
+THE
+
+FAMILY RECEIPT BOOK.
+
+
+TO PREPARE AND TO SELECT BEEF, MUTTON, LAMB, VEAL, AND BACON.
+
+White meats, such as veal, mutton, and lamb, should be washed as
+quickly as possible, or the juices of the meat will be extracted by
+the water. Fresh beef should never be washed, but well scraped with a
+clean knife twice over; any soiled parts which cannot be scraped must
+be cut off. If the bones are soiled, saw off the part with the meat
+saw. Salted meat should be well washed in three or four waters, and
+soaked at least fifteen minutes in cold water, before putting it down
+to boil. The pot should be filled with cold water, and boil slowly till
+done, according to the size of the meat, or allow a quarter of an hour
+for every pound of the meat; quick boiling will make the meat hard and
+insipid. Be careful that it does not stop boiling, or the meat will be
+injured; remove the scum frequently. People are not generally aware of
+the injurious effects from eating the flesh of diseased animals. It
+has been my practice to choose beef from the whiteness of the fat, and
+always object to it if a dark shade of yellow; let the fat be clear
+and thick, and the beef smooth and close; if otherwise, it is old. The
+flesh of a young ox should be a good red, and have a smooth and open
+grain, and feel tender. Pork may be judged by the thinness of the skin,
+and by pinching the lean; if young, it will break. When clammy, it is
+not fit for use. Fresh pork will be always cool and smooth. The fat of
+mutton should be white and firm, and the lean a good colour. If the
+vein in the neck of lamb has a greenish cast, it is stale: it should be
+of a bluish hue.
+<2>
+BACON.--The lean should be of a good colour, and tender, and firm on
+the bone, the fat should be firm and of a red tinge, and the rind thin.
+Try a ham by putting a sharp knife in under the bone. If the smell
+is agreeable, the ham is good; if otherwise, and the knife soiled,
+reject it. Veal,--The whitest is the most juicy, having been made so
+by frequent bleeding: the flesh of a bull calf is firmest, but of a
+darker colour. Old and diseased meat will shrink very much in cooking.
+Hams and tongues, if they are old and hard, should be put to soak in
+warm water the night before they are boiled. A large ham will take from
+four to six hours to boil, and a tongue will take nearly as long. They
+should be kept constantly boiling, and well skimmed: put them down in
+plenty of cold water. Fish should always be boiled in hot water with a
+little salt in it: let them boil slowly.
 <3>
-In a B+ Tree, the leaf nodes are connected as a doubly linked list.
+Wild fowls do not require as much cooking as tame. They should be done
+before a brisk fire, and be constantly basted. Wild ducks will cook
+sufficiently in a quarter of an hour; pheasants in twenty minutes. A
+large turkey will take from two hours and a half to three hours. Hen
+turkeys are the best for boiling. The time will depend on the size: if
+a large one, it will take two hours and a half, and should be boiled
+in a cloth. All meats when roasting should be put some distance from
+the fire, and brought gradually nearer; the more they are turned and
+basted, the more juicy they will be. Vegetables should be freshly
+gathered; they are much sweeter and more healthy, if cooked as soon as
+taken out of the ground. When potatoes are to be fried, throw them in
+water with plenty of ice in it after slicing. This will make them crisp.
+
+<4>
+BEEF SOUP, THIN.
+
+Wash and scrape well a shin of beef, put it down early in the morning
+in plenty of cold water, with a piece of veal, and a small piece of
+lean ham; let it boil slowly one hour, and skim it well; then add two
+carrots, washed, scraped, and cut fine, six potatoes, four onions, and
+one turnip; some horse-radish cut in small pieces; season with black
+and cayenne pepper, and salt to your taste: about half an hour before
+it is done, put in a bunch of sweet herbs, parsley, and a little
+celery cut in small pieces. You can either strain it or send it to
+table with the vegetables in it.
+
+
+ANOTHER BEEF SOUP.
+
+Boil a shin of beef the day before it is wanted. The next day put on
+your stock, after removing the fat from the top of it; then put in
+a tea-cup of barley, wash and cut up two carrots, three onions, one
+turnip, three tomatoes, put in parsley and the usual pot herbs, twenty
+minutes before it is done; season with cayenne and black pepper and
+salt to your taste.
+
+
+VEAL SOUP.
+
+Put into the soup kettle a small piece of ham; wash and cut up four
+onions; put them into the pot with the ham, and six quarts of water;
+let it boil slowly an hour and a half, then put in a shin of veal;
+let it boil an hour and a half longer; then take out the ham; skim
+off the grease as it rises; beat up in a gill of good cream, two
+table-spoonsful of flour, and the yolks of two eggs very light; and
+then add the soup; season with parsley, pepper, and salt, and serve up.
+
+<5>
+MUTTON BROTH.
+
+Scrape and wash clean a breast of mutton; put it down in the soup
+kettle to boil with five quarts of water, put in a small cup of barley,
+or two tablespoonsful of rice; let it boil slowly three hours and
+thirty minutes; skim it well; add carrots, a turnip, an onion, and a
+little parsley cut up; let it boil forty minutes longer; season with
+pepper and salt; serve hot. The carrots should be grated.
+
+<6>
+CHICKEN BROTH.
+
+Chicken broth may be made in the same way. Some persons prefer rice,
+but rice is used in so many ways, that barley is more uncommon as
+well as more nutritious. Noodles or vermicelli can be substituted, if
+preferred.
+
+
+CHICKEN SOUP.
+
+Put a pair of chickens in the soup kettle, with five quarts of water,
+one large carrot grated, and let it boil; skim off the grease as it
+rises: after it has boiled three hours take out the chickens, and
+strain the liquor through a sieve; put it in the kettle again; add the
+vermicelli after it has boiled an hour, an onion chopped small, some
+pepper and salt, a few blades of mace, a little parsley cut fine. If
+you like, just before it is served up, add a small bunch of thyme.
+
+<7>
+OYSTER SOUP.
+
+Strain the liquor from a hundred oysters into the soup kettle; add
+a quart of milk, a little mace, cloves, pepper and salt, with a
+little rolled cracker; boil 20 minutes; then put in the oysters; stir
+frequently: fifteen minutes after the oysters are in, serve it up.
+
+
+MOCK TURTLE SOUP.
+
+Clean very well a calfâ€™s head, take out the eyes, cut off the nose; let
+it soak for ten minutes; then put it down with five quarts of water,
+a small piece of ham, four onions, and some salt; let these boil till
+tender, or till the meat will leave the bones; then strain it; add
+cloves, nutmeg, parsley, and thyme; let it stew slowly for an hour; add
+a small piece of butter rubbed in flour, some wine and mushroom catsup.
+You can then put the meat in or send the soup to table without it, as
+preferred.
+
+<8>
+CALFâ€™S HEAD SOUP.
+
+Prepare as above. Then put down the head and liver in six quarts of
+water; let them boil till tender; take them up; cut the meat in small
+pieces; be careful to take out all the bones; then put the meat into
+the liquor with three onions, some cloves, mace, and nutmeg, pepper,
+black and cayenne, and salt; set this on the fire; let it simmer gently
+an hour: just before taking it up, add a little butter rubbed in flour,
+and some wine.
+
+
+OX-TAIL SOUP.
+
+Wash and joint two ox-tails; pour over them in a soup kettle five
+quarts of water; when it comes to a boil skim it, and add some salt,
+three onions, two carrots cut fine, three turnips, four potatoes, a
+large bunch of pot herbs, some cayenne pepper, and a little rice flour;
+boil slowly for three hours, but do not put in the vegetables till
+after it has been boiling two hours: half an hour before you take it
+up, add a little celery cut up fine.
+
+<9>
+MULLAGATAWNY SOUP.
+
+This soup is always made of the same materials, only varying in
+quantity. Brown in some butter six or eight onions; fry some pieces of
+rabbits and chicken; lay it upon the onions; have ready some stock,
+boiling hot; let it simmer gently for an hour and a quarter; then
+strain it through a sieve; add two quarts more of stock, and let it
+stew; mix with it three tea-spoonsful of currie powder, and two of
+brown flour with a little cold water; let it boil slowly for half an
+hour. If preferred, the juice of a lemon may be strained into it.
+
+
+OCHRA SOUP.
+
+Wash well a dozen and a half young ochras; slice them thin, three
+onions chopped fine; pour on these five quarts of water early in the
+morning with pepper and salt; let this stew slowly two hours; then
+put in a piece of veal and a piece of lean bacon, with seven or eight
+tomatoes, skinned and sliced; boil it till it is thick; serve hot to
+table.
+
+<10>
+CATFISH SOUP.
+
+Take one large catfish, clean it well, cut off the head; then cut the
+fish in half; put it in a pot with two onions, and a bunch of parsley
+cut up fine, and some pepper and salt; put in a quart of water, and
+stew slowly till the fish is tender; then add a pint of milk and a
+quart of water; let this all simmer for half an hour; roll a piece of
+butter in a little flour: in twenty minutes after the butter and flour
+go in, it will be sufficiently done.
+
+
+DRIED PEA SOUP.
+
+Wash a quart of dried peas well; put them in four quarts of water to
+soak over night; early in the morning place it over the fire in your
+soup kettle; when it has boiled three hours, put in a small piece of
+salt pork; add some salt, pepper, and two chopped onions; after it
+has boiled some time take out the pork; mash the peas, and strain the
+liquor through a sieve into a kettle; put the pork in again; skim off
+the fat; let it boil one hour; serve up hot with toast.
+
+<11>
+GREEN PEA SOUP.
+
+Shell a quart of green peas; wash them, and put them down to boil with
+three quarts of water and a little salt; when it has boiled slowly
+an hour and a half, season with pepper and a little butter rolled in
+flour: boiling a few of the pods with the peas is an improvement.
+
+
+BEAN SOUP.
+
+Wash the beans and soak them over night; in the morning throw off the
+water, and put down the beans with five quarts of water and a small
+piece of salt pork; let it boil till the beans are perfectly soft; then
+take out the pork and either strain the soup, or send it to table with
+the beans in, as preferred.
+
+
+CLAM SOUP.
+
+Wash the shells of a peck of clams carefully; put them to boil in two
+quarts of cold water; when the shells have opened, take off the liquor;
+return it to the soup kettle; take the clams out of the shells, put
+them in the pot with the seasoning; a little salt and pepper; rub in
+a small piece of butter, a dessert spoonful of flour; stir constantly
+till boiling hot; add some parsley chopped fine, and a pint of milk.
+
 <-1>

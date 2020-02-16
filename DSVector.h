@@ -22,6 +22,8 @@ public:
     bool operator <(const DSVector<T> & r) const;
     DSVector &operator=(const DSVector<T> &);//assignment operator
 
+    void edit(T, int);
+    void sort();
     T operator[](int);
     void append(T);
     int getSize();
@@ -114,6 +116,11 @@ void DSVector<T>::clear() {
     size = 0;
 }
 
+template <class T>
+void DSVector<T>::edit(T input, int index) {
+    data[index] = input;
+}
+
 
 template <class T>
 T DSVector<T>::operator[](int x) {
@@ -134,6 +141,23 @@ bool DSVector<T>::find(T input) {
         }
     }
     return false;
+}
+
+template <class T>
+void DSVector<T>::sort() {
+    T temp;
+    for(int i=0;i<size;i++)
+    {
+        for(int j=i+1;j<size;j++)
+        {
+            if(data[i]>data[j])
+            {
+                temp  =data[i];
+                data[i]=data[j];
+                data[j]=temp;
+            }
+        }
+    }
 }
 
 

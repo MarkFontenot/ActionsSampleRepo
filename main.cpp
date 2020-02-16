@@ -2,11 +2,20 @@
 #include <fstream>
 #include "DSVector.h"
 #include "DSString.h"
+#define CATCH_CONFIG_RUNNER
+#include "catch.hpp"
 
 
 using namespace std;
 
 int main(int argc, char **argv) {
+    //RUNNING CATCH TESTS
+    //argc == 1
+    if (true) {
+        cout << "Running Catch Tests" << endl;
+        return Catch::Session().run();
+    }
+
      //cout << "hello";
      DSString y("Hello My NAME iS JOnathan");
      DSString x("My NAME");
@@ -112,12 +121,56 @@ int main(int argc, char **argv) {
          page++;
      }
      DSString out;
+     DSString word;
+     DSString temp2;
+     DSString temp3(": ");
+     keyWords.sort();
+     DSVector<DSString> pagesAppeared;
+     DSString temp;
+
+     for(int j = 0; j < keyWords.getSize(); j++){
+        pagesAppeared.append("-1");
+     }
+
+
 
      for(int x = 0; x < eachPage.getSize(); x++){
          out = eachPage[x];
-         cout << out << endl;
+         //cout << out << endl;
+         for(int j = 0; j < keyWords.getSize(); j++){
+             word = keyWords[j];
+             if(out.contains(word) != -1){
+                 temp = pagesAppeared[j];
+                 temp2 = (x+1);
+
+
+                 if(pagesAppeared[j] == "-1"){
+                     temp2 = temp3 + temp2;
+                     pagesAppeared.edit(temp2,j);
+                 } else{
+                     temp = temp + ", " + temp2;
+                     pagesAppeared.edit(temp,j);
+                 }
+             }
+         }
 
      }
+     char currLetter;
+     char nextLetter;
+
+    for(int j = 0; j < keyWords.getSize(); j++) {
+        nextLetter = keyWords[j][0];
+        if(currLetter != nextLetter){
+            currLetter = nextLetter;
+            cout << "[" << nextLetter << "]" << endl;
+        }
+        word = keyWords[j];
+        temp = pagesAppeared[j];
+        cout << word << temp << endl;
+    }
+
+
+
 
     //if(keyWords.find(read)){
         //cout << "We found: " << read << endl;
