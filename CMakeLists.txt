@@ -13,7 +13,7 @@ set (EXE_NAME AutoIndexer)
 # if you need more, add them here and in the foreach stmt below.
 set (input01 "bookInput.txt")
 set (input02 "wordsInput.txt")
-set (input03 "")
+
 
 #
 ##########################################
