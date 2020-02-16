@@ -1,4 +1,4 @@
-b+ Tree
+b+ tree
 algorithm
 analysis
 doubly linked list

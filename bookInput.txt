@@ -1,8 +1,9 @@
-Advanced Data Structures and Algorithm Implementation is a new exciting text from Mustang Publishers aimed at upper division undergraduate courses or introductory graduate courses. <4>
+<1>
+Advanced Data Structures and Algorithm Implementation is a new exciting text from Mustang Publishers aimed at upper division undergraduate courses or introductory graduate courses. <2>
 Some of the topics covered are:
 * Fast String Matching
 * B+ Tree Implementation
 * A* Graph Traversal
-<10>
+<3>
 In a B+ Tree, the leaf nodes are connected as a doubly linked list.
 <-1>

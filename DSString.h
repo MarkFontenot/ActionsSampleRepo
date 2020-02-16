@@ -24,6 +24,7 @@ public:
     //overloaded operators
     DSString &operator=(const DSString&);//assignment operator
     DSString &operator=(const char*);//assignment operator
+    DSString &operator=(const int);
     DSString operator+(DSString rhs);//addition operator
     bool operator<(const DSString&)const;//less than operator
     bool operator>(const DSString&)const;//greater than operator
@@ -32,9 +33,10 @@ public:
     friend istream& operator >>(istream& , DSString &);//in stream
 
     //special functions
-    bool contains(DSString & str);
+    int contains(DSString & str);
     char operator[](int);
     DSString substring(int, int);
+    void lowercase();
 
 
 

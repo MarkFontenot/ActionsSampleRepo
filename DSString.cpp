@@ -59,12 +59,14 @@ DSString::~DSString(){
 
 /*Contains
  * This method checks if the current DSString contains the parameter passed in.
+ * And returns the index at which is was found.
  *
  * Params: DSString
- * Return: Bool
+ * Return: int
  */
-bool DSString::contains(DSString & input) {
+int DSString::contains(DSString & input) {
     bool start  = false;
+    int indexFound = -1;
 
     int lengthOfParam = strlen(input.data);//finds how long the parameter is
 
@@ -75,6 +77,7 @@ bool DSString::contains(DSString & input) {
         //first character in the params data
         if(data[x] == input.data[0]) {
             start = true;//starts checking to see if all of the param is contained in the current DSString
+            indexFound = x;
 
             //iterates through the param's data
             for (int j = 0; j < lengthOfParam; j++) {
@@ -82,7 +85,7 @@ bool DSString::contains(DSString & input) {
                 //checks if the current DSString is at the end before
                 //finding all elements of param's data
                 if (x + j > strlen(data)){
-                    return false;
+                    return -1;
                 }else {
 
                     //checks to see if the current element in the current DSString's data
@@ -91,17 +94,18 @@ bool DSString::contains(DSString & input) {
 
                         //indicates that the current DSString does not contain the param's data at this point
                         start = false;
+                        indexFound = -1;
                     }
                 }
             }
 
             //if start was never changed to false then the DSString does contain the param's data
             if (start) {
-                return true;
+                return indexFound;
             }
         }
     }
-    return false;//returns false if the param's data is not found after iterating through the whole string
+    return -1;//returns false if the param's data is not found after iterating through the whole string
 }
 
 
@@ -128,6 +132,7 @@ DSString& DSString::operator=(const DSString& input) {
 
     data = new char[strlen(input.data) + 1];
     strcpy(data, input.data);//copies the inputs data to the current DSStrings data
+
     return *this;
 }
 
@@ -250,6 +255,7 @@ istream& operator >>(istream& inStreamIn, DSString& input){
  * Return: DSString
  */
 DSString DSString::substring(int firstIndex, int secondIndex) {
+
     //no need for + 1 because secondIndex isn't inclusive
     char * temp = new char[secondIndex - firstIndex];
 
@@ -295,3 +301,40 @@ char DSString::operator[](int x) {
 
 }
 
+/*lowercase
+ * This method makes every character in the DSString lowercase
+ *
+ * Params: N/A
+ * Return: void
+ */
+
+void DSString::lowercase() {
+    //no need for + 1 because secondIndex isn't inclusive
+    for(int x = 0; x < strlen(data); x++){
+        data[x] = tolower(data[x]);
+    }
+}
+
+DSString &DSString::operator=(const int input) {
+    delete[] data;//clears current data
+
+    int n = input;
+    int count = 0;
+    while (n != 0) {
+        n = n / 10;
+        ++count;
+    }
+    data = new char[count];
+    //char array [count];
+    int number = input;
+    for (int i = count-1; i >= 0; i--) {
+        int x = (number % 10);
+        char c = '0' + x;
+        data[i] = c;
+        number /= 10;
+    }
+    data[count] = '\0';
+
+
+    return *this;
+}
