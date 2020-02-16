@@ -11,7 +11,7 @@ using namespace std;
 int main(int argc, char **argv) {
     //RUNNING CATCH TESTS
     //argc == 1
-    if (true) {
+    if (argc == 1) {
         cout << "Running Catch Tests" << endl;
         return Catch::Session().run();
     }
@@ -181,8 +181,8 @@ int main(int argc, char **argv) {
     //k.append(2);
     //cout << k[0];
     //cout << "Hello, World!" << endl;
-    ofstream fout("output01.txt");
-    fout << "Hello world!" << endl;
+    ofstream fout(argv[3]);
+    fout << "Hello world! This is a test" << endl;
     fout.close();
     return 0;
 }
