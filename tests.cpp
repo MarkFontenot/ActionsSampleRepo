@@ -58,15 +58,15 @@ TEST_CASE("Vector class", "[vector]") {
         DSString str2;
 
         str = "ring";
-        REQUIRE((s[0].contains(str) == true));
+        REQUIRE((s[0].contains(str) != -1));
         str = "hello";
-        REQUIRE((s[0].contains(str) == false));
-        REQUIRE((s[0].contains(s[9]) == true));
+        REQUIRE((s[0].contains(str) == -1));
+        //REQUIRE((s[0].contains(s[9]) != -1));
         str = "Stringtest";
-        REQUIRE((s[0].contains(str) == false));
+        REQUIRE((s[0].contains(str) == -1));
         str = "helloljher23re";
         str2 = "ljher";
-        REQUIRE(str.contains(str2) == true);
+        REQUIRE(str.contains(str2) != -1);
     }
 
     SECTION("[] Operator") {
@@ -93,5 +93,35 @@ TEST_CASE("Vector class", "[vector]") {
         REQUIRE(strcmp(s[0].c_str(), "testString") == 0);
         REQUIRE(strcmp(s[9].c_str(), s[0].c_str()) == 0);
         REQUIRE(strcmp(s[2].c_str(), "") == 0);
+    }
+
+    SECTION("Find"){
+        DSString str;
+        str = "testString";
+        REQUIRE((s.find(str) == true));
+        str = "ring";
+        REQUIRE((s.find(str) == false));
+    }
+
+    SECTION("Edit"){
+        DSString str;
+        str = "changed";
+        s.edit(str,0);
+        REQUIRE((s[0] == str));
+    }
+
+    SECTION("Get Size"){
+        REQUIRE(s.getSize() == 10);
+    }
+
+    SECTION("Is Empty"){
+        REQUIRE((s.isEmpty() == false));
+        s.clear();
+        REQUIRE((s.isEmpty() == true));
+    }
+
+    SECTION("Clear"){
+        s.clear();
+        REQUIRE(s.getSize() == 0);
     }
 }
