@@ -4,5 +4,4 @@ Green pea
 Food
 Receipt
 Potatoes
-Receipt
 Meats

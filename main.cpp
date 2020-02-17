@@ -28,12 +28,12 @@ int main(int argc, char **argv) {
      //j = k;
      //cout << j[0];
     ifstream keyWordsFile;
-    keyWordsFile.open(argv[2]);
+    keyWordsFile.open(argv[1]);
     char part [2048];
     DSVector<DSString> keyWords;
     DSString read;
-    cout << "test";
-    if(!keyWordsFile.is_open()){
+    //cout << "test";
+    if(!keyWordsFile){
         cout << "Error opening input file";
         return 1;
     }
@@ -45,8 +45,8 @@ int main(int argc, char **argv) {
     }
 
      ifstream book;
-     book.open(argv[1]);
-     if(!book.is_open()){
+     book.open(argv[2]);
+     if(!book){
          cout << "Error opening input file";
          return 1;
      }

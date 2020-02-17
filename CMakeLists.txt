@@ -11,8 +11,9 @@ set (EXE_NAME AutoIndexer)
 #   set (input02 "train_target.csv")
 # etc....
 # if you need more, add them here and in the foreach stmt below.
-set (input01 "bookInput.txt")
-set (input02 "wordsInput.txt")
+set (input01 "wordsInput.txt")
+set (input02 "bookInput.txt")
+
 
 
 #
