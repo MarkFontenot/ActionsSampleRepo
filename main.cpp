@@ -20,20 +20,6 @@ int main(int argc, char **argv) {
      DSString y("Hello My NAME iS JOnathan");
      DSString x("My NAME");
 
-     //cout << y[y.contains(x)];
-     //cout <<
-
-
-
-    //cout << (char *) numero << "lol";
-    //DSString second((char *)numero);
-
-
-
-
-
-
-
 
 
      //cout << y;
