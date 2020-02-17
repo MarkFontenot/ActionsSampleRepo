@@ -157,17 +157,20 @@ int main(int argc, char **argv) {
      }
      char currLetter;
      char nextLetter;
+    ofstream fout(argv[3]);
+
 
     for(int j = 0; j < keyWords.getSize(); j++) {
         nextLetter = keyWords[j][0];
         if(currLetter != nextLetter){
             currLetter = nextLetter;
-            cout << "[" << nextLetter << "]" << endl;
+            fout << "[" << nextLetter << "]" << endl;
         }
         word = keyWords[j];
         temp = pagesAppeared[j];
-        cout << word << temp << endl;
+        fout << word << temp << endl;
     }
+    fout.close();
 
 
 
@@ -181,8 +184,6 @@ int main(int argc, char **argv) {
     //k.append(2);
     //cout << k[0];
     //cout << "Hello, World!" << endl;
-    ofstream fout(argv[3]);
-    fout << "Hello world! This is a test" << endl;
-    fout.close();
+
     return 0;
 }
