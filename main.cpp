@@ -46,7 +46,7 @@ int main(int argc, char **argv) {
     char part [2048];
     DSVector<DSString> keyWords;
     DSString read;
-
+    cout << "test";
     if(!keyWordsFile.is_open()){
         cout << "Error opening input file";
         return 1;
