@@ -19,7 +19,7 @@ set (input02 "wordsInput.txt")
 ##########################################
 
 # Copy data files to build dir
-foreach(file IN LISTS input01 input02)
+foreach(file IN LISTS bookInput.txt wordsInput.txt)
     configure_file(${file} ${file} COPYONLY)
 endforeach()
 

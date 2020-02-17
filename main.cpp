@@ -157,7 +157,8 @@ int main(int argc, char **argv) {
      }
      char currLetter;
      char nextLetter;
-    ofstream fout(argv[3]);
+    ofstream fout;
+    fout.open(argv[3]);
 
 
     for(int j = 0; j < keyWords.getSize(); j++) {
