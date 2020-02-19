@@ -6,7 +6,7 @@
 
 
 TEST_CASE("Vector class", "[vector]") {
-
+    cout << "hello";
     DSVector<DSString> s;
     s.append(DSString((char *) "testString"));
     s.append(DSString((char *) "a test string"));

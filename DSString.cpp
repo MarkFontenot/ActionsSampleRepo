@@ -131,6 +131,7 @@ DSString& DSString::operator=(const DSString& input) {
     delete[] data;//clears current data
 
     data = new char[strlen(input.data) + 1];
+    //cout << input.data;
     strcpy(data, input.data);//copies the inputs data to the current DSStrings data
 
     return *this;
@@ -147,6 +148,7 @@ DSString& DSString::operator=(const char * input) {
     delete[] data;//clears current data
 
     data = new char[strlen(input) + 1];
+
     strcpy(data, input);//copies the input to the current DSStrings data
 
     return *this;
@@ -255,21 +257,31 @@ istream& operator >>(istream& inStreamIn, DSString& input){
  * Return: DSString
  */
 DSString DSString::substring(int firstIndex, int secondIndex) {
-
+   //cout << firstIndex << endl;
+   // cout << secondIndex << endl;
+    if(firstIndex >= secondIndex){
+        DSString temp2;
+        cout << endl << "WE ARE EXPECTING AN ERROR" << endl;
+        return temp2;
+    }
     //no need for + 1 because secondIndex isn't inclusive
-    char * temp = new char[secondIndex - firstIndex];
+    char * temp = new char[secondIndex - firstIndex + 1];
 
     int i = 0;
+    //data[firstIndex] != '\0' &&
 
     while(data[firstIndex] != '\0' && firstIndex < secondIndex){
         temp[i] = data[firstIndex];
         firstIndex++;
         i++;
     }
+
     temp[i] = '\0';
 
     DSString temp2;
     temp2 = temp;
+
+
     delete [] temp;//deallocate the previously created char array
     return temp2;
 }
@@ -334,7 +346,6 @@ DSString &DSString::operator=(const int input) {
         number /= 10;
     }
     data[count] = '\0';
-
 
     return *this;
 }
