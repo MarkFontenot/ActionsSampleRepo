@@ -179,7 +179,7 @@ DSVector<DSString> getKeyWords(char ** argv, char part []){
     DSString read;
 
     if(!keyWordsFile){
-        cout << "Error opening input file";
+        cout << "Error opening input file key words";
         exit(1);
     }
 
@@ -197,7 +197,7 @@ DSVector<DSString> getEachPage(char ** argv, char part []){
     ifstream book;
     book.open(argv[2]);
     if(!book){
-        cout << "Error opening input file";
+        cout << "Error opening input file book";
         exit(1);
     }
     DSString read;
@@ -242,7 +242,7 @@ DSVector<DSString> getEachPage(char ** argv, char part []){
 }
 
 DSVector<DSString> getPagesForEachWord(DSVector<DSString> & keyWords, DSVector<DSString> & rawPages){
-    DSString out;
+    //DSString out;
     DSString word;
     DSString temp2;
     DSString temp3((char *)": ");
