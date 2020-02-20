@@ -10,6 +10,7 @@
 using namespace std;
 void addPageNumbers(char **,char []);
 int getNumDigits(int);
+DSVector<DSString> getKeyWords(char **,char []);
 
 int main(int argc, char **argv) {
     //RUNNING CATCH TESTS
@@ -18,7 +19,7 @@ int main(int argc, char **argv) {
         cout << "Running Catch Tests" << endl;
         return Catch::Session().run();
     }
-    char part [2048];
+    char part [80];
 
     //addPageNumbers(argv, part);
 
@@ -41,7 +42,7 @@ int main(int argc, char **argv) {
     }
 
     while(!keyWordsFile.eof()){
-        keyWordsFile.getline(part,500,'\n');
+        keyWordsFile.getline(part,80,'\n');
         read = part;
         read.lowercase();
         keyWords.append(read);
@@ -64,7 +65,7 @@ int main(int argc, char **argv) {
      read = "";
      while(!book.eof()){
 
-         book.getline(part, 2048, '\n');
+         book.getline(part, 80, '\n');
          tempString = part;
          //cout << part << endl;
          if(tempString[0] == '<' && tempString[tempString.getLength() -1] == '>' && !first) {
@@ -245,23 +246,25 @@ int main(int argc, char **argv) {
                 lengthOfLine += temp.getLength();
                 start = false;
             }else {
-                if(lengthOfLine + 2 > 80){
+                if(lengthOfLine + 2 > 70){
                     //cout << "WE IN";
                     //temp = temp + '\n';
                     fout << temp << endl;
+                    fout << "    ";
                     temp = "";
-                    lengthOfLine = 0;
+                    lengthOfLine = 4;
                 }else{
                     temp = temp + (char *) ", ";
                     lengthOfLine += 2;
                 }
                 tempInt = intResults[x];
-                if(lengthOfLine + tempInt.getLength() > 80){
+                if(lengthOfLine + tempInt.getLength() > 70){
 
 
                     fout << temp << endl;
+                    fout << "    ";
                     temp = "";
-                    lengthOfLine = 0;
+                    lengthOfLine = 4;
                 }
                 temp = temp + tempInt;
                 lengthOfLine += tempInt.getLength();
@@ -296,8 +299,8 @@ void addPageNumbers(char ** argv, char part []){
     finalBook << 1;
     finalBook << "> " << endl;
     while(!rawBook.eof()){
-        rawBook.getline(part,1028,'\n');
-        finalBook << part << " ";
+        rawBook.getline(part,80,'\n');
+        finalBook << part << endl;
         //cout << part;
         counter++;
         if(counter == 10){
