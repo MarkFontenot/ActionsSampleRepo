@@ -28,7 +28,7 @@ int main(int argc, char **argv) {
 
 
 
-    cout << "hello";
+    cout << "hello this is the latest git clone";
 
      DSVector<DSString> keyWords;
      keyWords = getKeyWords(argv,part);
