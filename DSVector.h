@@ -26,7 +26,7 @@ public:
     void sort();
     T operator[](int);
     void append(T);
-    int getSize();
+    int getSize()const;
     void clear();
     bool isEmpty();
     bool find(T);
@@ -46,13 +46,14 @@ DSVector<T>::DSVector() {
 }
 
 template <class T>
-int DSVector<T>::getSize(){
+int DSVector<T>::getSize()const{
     return size;
 }
 
 
 template <class T>
-DSVector<T>::DSVector(const DSVector<T> & input) {
+DSVector<T>::DSVector(const DSVector<T> & input){
+    //std::cout << size;
     data = new T[input.getSize()];
     for(int x = 0; x < size; x++){
         data[x] = input.data[x];

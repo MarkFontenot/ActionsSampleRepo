@@ -349,3 +349,47 @@ DSString &DSString::operator=(const int input) {
 
     return *this;
 }
+
+DSVector<DSString> DSString::split(char splitter []) {
+    DSVector<DSString> result;
+    DSString temp;
+
+    char *token = strtok(data, splitter);
+
+
+    while (token != NULL)
+    {
+        temp = token;
+        result.append(temp);
+        token = strtok(NULL, splitter);
+    }
+
+    return result;
+}
+
+DSString DSString::operator+(char rhs) {
+    char * temp = new char[strlen(data) + 1];
+
+
+    int i = 0;
+
+    //iterates through the current DSString's data
+    while(data[i] != '\0'){
+        temp[i] = data[i];
+        i++;
+    }
+//    temp[i] = rhs;
+//   temp++;
+    temp[i] = '\0';
+    //strcat(temp,rhs);
+
+    DSString temp2;
+    temp2 = temp;
+    delete [] temp;//deletes the previously allocated data
+    //delete [] rhsData;
+    return temp2;
+}
+
+int DSString::getInt() {
+    return atoi(data);
+}

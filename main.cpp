@@ -9,6 +9,7 @@
 
 using namespace std;
 void addPageNumbers(char **,char []);
+int getNumDigits(int);
 
 int main(int argc, char **argv) {
     //RUNNING CATCH TESTS
@@ -157,6 +158,10 @@ int main(int argc, char **argv) {
         pagesAppeared.append((char *)"-1");
      }
 
+
+     //DSVector<DSVector<int>> pagesInside;
+
+
     for(int x = 0; x < rawPages.getSize(); x++){
         for(int j = 0; j < keyWords.getSize(); j++){
             tempString = rawPages[x];
@@ -168,7 +173,7 @@ int main(int argc, char **argv) {
                 temp = pagesAppeared[j];
                 temp2 = tempString.substring(1,tempString.contains(end));
                 if(pagesAppeared[j] == (char *)"-1"){
-                    temp2 = temp3 + temp2;
+                    temp2 = temp2;
                     pagesAppeared.edit(temp2,j);
                 } else{
                     temp = temp + (char *)", " + temp2;
@@ -205,8 +210,10 @@ int main(int argc, char **argv) {
      char nextLetter;
     ofstream fout;
     fout.open(argv[3]);
-
-
+    DSString tempInt;
+    DSVector<DSString> result;
+    DSVector<int> intResults;
+    int lengthOfLine;
     for(int j = 0; j < keyWords.getSize(); j++) {
         nextLetter = keyWords[j][0];
         if(currLetter != nextLetter){
@@ -215,8 +222,58 @@ int main(int argc, char **argv) {
         }
         word = keyWords[j];
         temp = pagesAppeared[j];
-        fout << word << temp << endl;
+        lengthOfLine += word.getLength();
+        fout << word;
+        //cout << temp << endl;
+        result = temp.split((char *)", ");
+        intResults.clear();
+        for(int x = 0; x < result.getSize();x++){
+            tempString = result[x];
+            //cout << "This should be: " << tempString << " but is: " << tempString.getInt()<< endl;
+            intResults.append(tempString.getInt());
+
+
+        }
+        intResults.sort();
+
+        bool start = true;
+        for(int x = 0; x < intResults.getSize();x++){
+            if(start){
+                tempInt = intResults[x];
+                temp = (char *)": ";
+                temp = temp + tempInt;
+                lengthOfLine += temp.getLength();
+                start = false;
+            }else {
+                if(lengthOfLine + 2 > 80){
+                    //cout << "WE IN";
+                    //temp = temp + '\n';
+                    fout << temp << endl;
+                    temp = "";
+                    lengthOfLine = 0;
+                }else{
+                    temp = temp + (char *) ", ";
+                    lengthOfLine += 2;
+                }
+                tempInt = intResults[x];
+                if(lengthOfLine + tempInt.getLength() > 80){
+
+
+                    fout << temp << endl;
+                    temp = "";
+                    lengthOfLine = 0;
+                }
+                temp = temp + tempInt;
+                lengthOfLine += tempInt.getLength();
+            }
+        }
+        cout << temp;
+        cout << endl << endl;
+        //cout << lengthOfLine << ": this is the length of line" << endl;
+        fout << temp << endl;
+        lengthOfLine = 0;
     }
+
     fout.close();
 
     return 0;
@@ -260,3 +317,11 @@ void addPageNumbers(char ** argv, char part []){
     rawBook.close();
 }
 
+int getNumDigits(int x){
+    int count = 0;
+    while (x != 0) {
+        x = x / 10;
+        ++count;
+    }
+    return count;
+}
