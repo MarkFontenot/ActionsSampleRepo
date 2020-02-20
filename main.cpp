@@ -57,26 +57,45 @@ int main(int argc, char **argv) {
      bool first = true;
      char * pch;
      char  separator [] = ".:,;\n";
-
+     DSVector<DSString> rawPages;
+     int pageCounter = 0;
+     DSString tempString;
+     read = "";
      while(!book.eof()){
 
-         book.getline(part, 200, ' ');
-         //cout << part;
+         book.getline(part, 2048, '\n');
+         tempString = part;
+         //cout << part << endl;
+         if(tempString[0] == '<' && tempString[tempString.getLength() -1] == '>' && !first) {
+             //cout << "new page" << endl;
+             //if(!first){
+                 //cout << read << endl;
+                rawPages.append(read);
+             //}
 
-         pch = strtok(part,separator);
-         while (pch != NULL){
-             if(first){
-                 read = pch;
-                 read = read + (char *)" ";
-                 first = false;
-             }else{
-                 read = read + pch + (char *)" ";
+             pageCounter++;
+             read = tempString + (char *)" ";
+         }else{
+             first = false;
+             pch = strtok(part,separator);
+             while (pch != NULL){
+//                 if(first){
+//                     read = pch;
+//                     read = read + (char *)" ";
+//                     first = false;
+//                 }else{
+                     read = read + pch + (char *)" ";
+//                 }
+                 pch = strtok(NULL, separator);
              }
-             pch = strtok(NULL, separator);
          }
      }
+
      read.lowercase();
 
+
+
+    // cout << read;
      bool stop = false;
 
      int page = 1;
@@ -88,44 +107,43 @@ int main(int argc, char **argv) {
      DSVector<DSString> eachPage;
      bool firstIteration = true;
 
-     DSString temp5;
+     DSString keyWordTemp;
     //cout << read;
-     while(!stop){
-         pageNumber = page;
-         //pageSearch = starter + pageNumber + (char *)">";
-         //cout << pageSearch;
-         indexStart = indexEnd;
-         if(firstIteration){
-             indexStart = 0;
-             firstIteration = false;
-         }
 
-         //indexStart = read.contains(pageSearch);
-         pageNumber = page + 1;
-         pageSearch = starter + pageNumber + (char *)">";
-         //cout << pageSearch << endl;
-         indexEnd = read.contains(pageSearch);
-         cout << indexStart << endl;
-         cout << indexEnd << endl;
-
-
-         if(indexStart == -1){
-             stop = true;
-         }else if(indexEnd == -1){
-             stop = true;
-             //temp5 = read.substring(indexStart,read.getLength()-1);
-             //cout << temp5 << endl;
-
-             eachPage.append(read.substring(indexStart,read.getLength()-1));
-         }else{
-             //temp5 = read.substring(indexStart,indexEnd);
-             //cout << temp5 << endl;
-             eachPage.append(read.substring(indexStart,indexEnd));
-             read = read.substring(indexStart,indexEnd);
-         }
-         cout << endl << endl;
-         page++;
-     }
+//     while(!stop){
+//         pageNumber = page;
+//         //pageSearch = starter + pageNumber + (char *)">";
+//         //cout << pageSearch;
+//         indexStart = indexEnd;
+//         if(firstIteration){
+//             indexStart = 0;
+//             firstIteration = false;
+//         }
+//
+//         //indexStart = read.contains(pageSearch);
+//         pageNumber = page + 1;
+//         pageSearch = starter + pageNumber + (char *)">";
+//         //cout << pageSearch << endl;
+//         indexEnd = read.contains(pageSearch);
+//
+//
+//         if(indexStart == -1){
+//             stop = true;
+//         }else if(indexEnd == -1){
+//             stop = true;
+//             //temp5 = read.substring(indexStart,read.getLength()-1);
+//             //cout << temp5 << endl;
+//
+//             eachPage.append(read.substring(indexStart,read.getLength()-1));
+//         }else{
+//             //temp5 = read.substring(indexStart,indexEnd);
+//             //cout << temp5 << endl;
+//             eachPage.append(read.substring(indexStart,indexEnd));
+//             //read = read.substring(indexEnd,read.getLength()-1);
+//         }
+//         cout << endl << endl;
+//         page++;
+//     }
      DSString out;
      DSString word;
      DSString temp2;
@@ -133,34 +151,56 @@ int main(int argc, char **argv) {
      keyWords.sort();
      DSVector<DSString> pagesAppeared;
      DSString temp;
+     DSString end((char *)">");
 
      for(int j = 0; j < keyWords.getSize(); j++){
         pagesAppeared.append((char *)"-1");
      }
 
+    for(int x = 0; x < rawPages.getSize(); x++){
+        for(int j = 0; j < keyWords.getSize(); j++){
+            tempString = rawPages[x];
+            keyWordTemp = keyWords[j];
+            tempString.lowercase();
+            keyWordTemp.lowercase();
 
+            if(tempString.contains(keyWordTemp) != -1){
+                temp = pagesAppeared[j];
+                temp2 = tempString.substring(1,tempString.contains(end));
+                if(pagesAppeared[j] == (char *)"-1"){
+                    temp2 = temp3 + temp2;
+                    pagesAppeared.edit(temp2,j);
+                } else{
+                    temp = temp + (char *)", " + temp2;
+                    pagesAppeared.edit(temp,j);
+                }
+            }
+        }
 
-     for(int x = 0; x < eachPage.getSize(); x++){
-         out = eachPage[x];
-         //cout << out << endl;
-         for(int j = 0; j < keyWords.getSize(); j++){
-             word = keyWords[j];
-             if(out.contains(word) != -1){
-                 temp = pagesAppeared[j];
-                 temp2 = (x+1);
+        //cout << tempString << endl;
+    }
 
-
-                 if(pagesAppeared[j] == (char *)"-1"){
-                     temp2 = temp3 + temp2;
-                     pagesAppeared.edit(temp2,j);
-                 } else{
-                     temp = temp + (char *)", " + temp2;
-                     pagesAppeared.edit(temp,j);
-                 }
-             }
-         }
-
-     }
+//     for(int x = 0; x < eachPage.getSize(); x++){
+//         out = eachPage[x];
+//         //cout << out << endl;
+//         for(int j = 0; j < keyWords.getSize(); j++){
+//             word = keyWords[j];
+//             if(out.contains(word) != -1){
+//                 temp = pagesAppeared[j];
+//                 temp2 = (x+1);
+//
+//
+//                 if(pagesAppeared[j] == (char *)"-1"){
+//                     temp2 = temp3 + temp2;
+//                     pagesAppeared.edit(temp2,j);
+//                 } else{
+//                     temp = temp + (char *)", " + temp2;
+//                     pagesAppeared.edit(temp,j);
+//                 }
+//             }
+//         }
+//
+//     }
      char currLetter;
      char nextLetter;
     ofstream fout;
