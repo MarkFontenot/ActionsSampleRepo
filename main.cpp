@@ -22,28 +22,35 @@ int main(int argc, char **argv) {
         cout << "Running Catch Tests" << endl;
         return Catch::Session().run();
     }
-    char part [80];
+    char part [81];
 
     //addPageNumbers(argv, part);
 
 
 
-    cout << "hello this is the latest git clone";
+    cout << "We are in" << endl;
 
      DSVector<DSString> keyWords;
      keyWords = getKeyWords(argv,part);
+
+    cout << "We have the keywords" << endl;
 
 
     DSVector<DSString> rawPages;
     rawPages = getEachPage(argv,part);
 
+    cout << "We have the pages in" << endl;
 
 
     DSVector<DSString> pagesAppeared;
     pagesAppeared = getPagesForEachWord(keyWords,rawPages);
-    cout << pagesAppeared.getSize();
+    cout << "We know where the key words appear" << endl;
+
+    //cout << pagesAppeared.getSize();
 
     writeToOutputFile(argv,keyWords,pagesAppeared);
+
+    cout << "We have written to output file" << endl;
 
 
 
@@ -200,9 +207,14 @@ DSVector<DSString> getKeyWords(char ** argv, char part []){
         }
         //read = part;
 
-        //cout << read << "   this is the read" << endl;
+
         read.lowercase();
-        keyWords.append(read);
+
+        if(!keyWords.find(read)){
+            cout << read << "   this is the read" << endl;
+            keyWords.append(read);
+        }
+
         read = "";
     }
     keyWordsFile.close();
@@ -219,14 +231,14 @@ DSVector<DSString> getEachPage(char ** argv, char part []){
     DSString read;
     bool first = true;
     char * pch;
-    char  separator [] = ".?!:,;\n";
+    char  separator [] = " .?-\"\t!:,;\n";
     DSVector<DSString> rawPages;
     int pageCounter = 0;
     DSString tempString;
     read = "";
     while(!(tempString == (char *)"<-1>")){
 
-        book.getline(part, 80, '\n');
+        book.getline(part, 81, '\n');
         tempString = part;
         //cout << part << endl;
         if(tempString[0] == '<' && tempString[tempString.getLength() -1] == '>' && !first) {
@@ -234,6 +246,7 @@ DSVector<DSString> getEachPage(char ** argv, char part []){
             //if(!first){
             //cout << read << endl;
             rawPages.append(read);
+
             //}
 
             pageCounter++;
@@ -268,6 +281,7 @@ DSVector<DSString> getPagesForEachWord(DSVector<DSString> & keyWords, DSVector<D
     DSString end((char *)">");
     DSString tempString;
     DSString keyWordTemp;
+    DSString space((char *)" ");
 
     for(int j = 0; j < keyWords.getSize(); j++){
         pagesAppeared.append((char *)"-1");
@@ -276,10 +290,10 @@ DSVector<DSString> getPagesForEachWord(DSVector<DSString> & keyWords, DSVector<D
     for(int x = 0; x < rawPages.getSize(); x++){
         for(int j = 0; j < keyWords.getSize(); j++){
             tempString = rawPages[x];
-            keyWordTemp = keyWords[j];
+            keyWordTemp = space + keyWords[j] + space;
             tempString.lowercase();
             keyWordTemp.lowercase();
-
+            cout << tempString << endl << endl;
             if(tempString.contains(keyWordTemp) != -1){
                 temp = pagesAppeared[j];
                 temp2 = tempString.substring(1,tempString.contains(end));

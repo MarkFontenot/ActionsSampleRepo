@@ -30,6 +30,8 @@ public:
     void clear();
     bool isEmpty();
     bool find(T);
+    void makeUnique();
+
 
 
     //sort
