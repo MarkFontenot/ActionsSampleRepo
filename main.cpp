@@ -28,7 +28,7 @@ int main(int argc, char **argv) {
 
 
 
-
+    cout << "hello";
 
      DSVector<DSString> keyWords;
      keyWords = getKeyWords(argv,part);
