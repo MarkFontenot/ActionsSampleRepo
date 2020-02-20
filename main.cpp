@@ -182,12 +182,28 @@ DSVector<DSString> getKeyWords(char ** argv, char part []){
         cout << "Error opening input file key words";
         exit(1);
     }
+    char * pch;
+    char  separator [] = ".?!:,;\n";
 
     while(!keyWordsFile.eof()){
         keyWordsFile.getline(part,80,'\n');
-        read = part;
+        pch = strtok(part,separator);
+        while (pch != NULL){
+//                 if(first){
+//                     read = pch;
+//                     read = read + (char *)" ";
+//                     first = false;
+//                 }else{
+            read = read + pch;
+//                 }
+            pch = strtok(NULL, separator);
+        }
+        //read = part;
+
+        //cout << read << "   this is the read" << endl;
         read.lowercase();
         keyWords.append(read);
+        read = "";
     }
     keyWordsFile.close();
     return keyWords;
@@ -203,7 +219,7 @@ DSVector<DSString> getEachPage(char ** argv, char part []){
     DSString read;
     bool first = true;
     char * pch;
-    char  separator [] = ".:,;\n";
+    char  separator [] = ".?!:,;\n";
     DSVector<DSString> rawPages;
     int pageCounter = 0;
     DSString tempString;
