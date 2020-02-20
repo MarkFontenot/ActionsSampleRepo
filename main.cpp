@@ -311,6 +311,7 @@ void writeToOutputFile(char ** argv, DSVector<DSString>& keyWords, DSVector<DSSt
                 nextLetter = keyWords[j][0];
                 if(currLetter != nextLetter){
                     currLetter = nextLetter;
+                    nextLetter = toupper(nextLetter);
                     fout << "[" << nextLetter << "]" << endl;
                 }
                 word = keyWords[j];
