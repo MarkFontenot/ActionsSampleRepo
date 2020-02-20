@@ -11,6 +11,9 @@ using namespace std;
 void addPageNumbers(char **,char []);
 int getNumDigits(int);
 DSVector<DSString> getKeyWords(char **,char []);
+DSVector<DSString> getEachPage(char **, char []);
+DSVector<DSString> getPagesForEachWord(DSVector<DSString>&, DSVector<DSString>&);
+void writeToOutputFile(char **, DSVector<DSString>&, DSVector<DSString>&);
 
 int main(int argc, char **argv) {
     //RUNNING CATCH TESTS
@@ -27,89 +30,36 @@ int main(int argc, char **argv) {
 
 
 
-     DSVector<DSString> k;
+     DSVector<DSString> keyWords;
+     keyWords = getKeyWords(argv,part);
 
 
-    ifstream keyWordsFile;
-    keyWordsFile.open(argv[1]);
+    DSVector<DSString> rawPages;
+    rawPages = getEachPage(argv,part);
 
-    DSVector<DSString> keyWords;
-    DSString read;
 
-    if(!keyWordsFile){
-        cout << "Error opening input file";
-        return 1;
-    }
 
-    while(!keyWordsFile.eof()){
-        keyWordsFile.getline(part,80,'\n');
-        read = part;
-        read.lowercase();
-        keyWords.append(read);
-    }
+    DSVector<DSString> pagesAppeared;
+    pagesAppeared = getPagesForEachWord(keyWords,rawPages);
+    cout << pagesAppeared.getSize();
 
-     ifstream book;
-     book.open(argv[2]);
-     if(!book){
-         cout << "Error opening input file";
-         return 1;
-     }
+    writeToOutputFile(argv,keyWords,pagesAppeared);
 
-     k.clear();
-     bool first = true;
-     char * pch;
-     char  separator [] = ".:,;\n";
-     DSVector<DSString> rawPages;
-     int pageCounter = 0;
-     DSString tempString;
-     read = "";
-     while(!book.eof()){
 
-         book.getline(part, 80, '\n');
-         tempString = part;
-         //cout << part << endl;
-         if(tempString[0] == '<' && tempString[tempString.getLength() -1] == '>' && !first) {
-             //cout << "new page" << endl;
-             //if(!first){
-                 //cout << read << endl;
-                rawPages.append(read);
-             //}
 
-             pageCounter++;
-             read = tempString + (char *)" ";
-         }else{
-             first = false;
-             pch = strtok(part,separator);
-             while (pch != NULL){
-//                 if(first){
-//                     read = pch;
-//                     read = read + (char *)" ";
-//                     first = false;
-//                 }else{
-                     read = read + pch + (char *)" ";
-//                 }
-                 pch = strtok(NULL, separator);
-             }
-         }
-     }
 
-     read.lowercase();
+
+
+
+     //k.clear();
+
+
+     //read.lowercase();
 
 
 
     // cout << read;
-     bool stop = false;
 
-     int page = 1;
-     DSString pageNumber;
-     DSString pageSearch;
-     DSString starter((char *)"<");
-     int indexStart;
-     int indexEnd;
-     DSVector<DSString> eachPage;
-     bool firstIteration = true;
-
-     DSString keyWordTemp;
     //cout << read;
 
 //     while(!stop){
@@ -146,45 +96,7 @@ int main(int argc, char **argv) {
 //         cout << endl << endl;
 //         page++;
 //     }
-     DSString out;
-     DSString word;
-     DSString temp2;
-     DSString temp3((char *)": ");
-     keyWords.sort();
-     DSVector<DSString> pagesAppeared;
-     DSString temp;
-     DSString end((char *)">");
 
-     for(int j = 0; j < keyWords.getSize(); j++){
-        pagesAppeared.append((char *)"-1");
-     }
-
-
-     //DSVector<DSVector<int>> pagesInside;
-
-
-    for(int x = 0; x < rawPages.getSize(); x++){
-        for(int j = 0; j < keyWords.getSize(); j++){
-            tempString = rawPages[x];
-            keyWordTemp = keyWords[j];
-            tempString.lowercase();
-            keyWordTemp.lowercase();
-
-            if(tempString.contains(keyWordTemp) != -1){
-                temp = pagesAppeared[j];
-                temp2 = tempString.substring(1,tempString.contains(end));
-                if(pagesAppeared[j] == (char *)"-1"){
-                    temp2 = temp2;
-                    pagesAppeared.edit(temp2,j);
-                } else{
-                    temp = temp + (char *)", " + temp2;
-                    pagesAppeared.edit(temp,j);
-                }
-            }
-        }
-
-        //cout << tempString << endl;
-    }
 
 //     for(int x = 0; x < eachPage.getSize(); x++){
 //         out = eachPage[x];
@@ -207,77 +119,6 @@ int main(int argc, char **argv) {
 //         }
 //
 //     }
-     char currLetter;
-     char nextLetter;
-    ofstream fout;
-    fout.open(argv[3]);
-    DSString tempInt;
-    DSVector<DSString> result;
-    DSVector<int> intResults;
-    int lengthOfLine;
-    for(int j = 0; j < keyWords.getSize(); j++) {
-        nextLetter = keyWords[j][0];
-        if(currLetter != nextLetter){
-            currLetter = nextLetter;
-            fout << "[" << nextLetter << "]" << endl;
-        }
-        word = keyWords[j];
-        temp = pagesAppeared[j];
-        lengthOfLine += word.getLength();
-        fout << word;
-        //cout << temp << endl;
-        result = temp.split((char *)", ");
-        intResults.clear();
-        for(int x = 0; x < result.getSize();x++){
-            tempString = result[x];
-            //cout << "This should be: " << tempString << " but is: " << tempString.getInt()<< endl;
-            intResults.append(tempString.getInt());
-
-
-        }
-        intResults.sort();
-
-        bool start = true;
-        for(int x = 0; x < intResults.getSize();x++){
-            if(start){
-                tempInt = intResults[x];
-                temp = (char *)": ";
-                temp = temp + tempInt;
-                lengthOfLine += temp.getLength();
-                start = false;
-            }else {
-                if(lengthOfLine + 2 > 70){
-                    //cout << "WE IN";
-                    //temp = temp + '\n';
-                    fout << temp << endl;
-                    fout << "    ";
-                    temp = "";
-                    lengthOfLine = 4;
-                }else{
-                    temp = temp + (char *) ", ";
-                    lengthOfLine += 2;
-                }
-                tempInt = intResults[x];
-                if(lengthOfLine + tempInt.getLength() > 70){
-
-
-                    fout << temp << endl;
-                    fout << "    ";
-                    temp = "";
-                    lengthOfLine = 4;
-                }
-                temp = temp + tempInt;
-                lengthOfLine += tempInt.getLength();
-            }
-        }
-        cout << temp;
-        cout << endl << endl;
-        //cout << lengthOfLine << ": this is the length of line" << endl;
-        fout << temp << endl;
-        lengthOfLine = 0;
-    }
-
-    fout.close();
 
     return 0;
 }
@@ -327,4 +168,203 @@ int getNumDigits(int x){
         ++count;
     }
     return count;
+}
+
+
+DSVector<DSString> getKeyWords(char ** argv, char part []){
+    ifstream keyWordsFile;
+    keyWordsFile.open(argv[1]);
+
+    DSVector<DSString> keyWords;
+    DSString read;
+
+    if(!keyWordsFile){
+        cout << "Error opening input file";
+        exit(1);
+    }
+
+    while(!keyWordsFile.eof()){
+        keyWordsFile.getline(part,80,'\n');
+        read = part;
+        read.lowercase();
+        keyWords.append(read);
+    }
+    keyWordsFile.close();
+    return keyWords;
+}
+
+DSVector<DSString> getEachPage(char ** argv, char part []){
+    ifstream book;
+    book.open(argv[2]);
+    if(!book){
+        cout << "Error opening input file";
+        exit(1);
+    }
+    DSString read;
+    bool first = true;
+    char * pch;
+    char  separator [] = ".:,;\n";
+    DSVector<DSString> rawPages;
+    int pageCounter = 0;
+    DSString tempString;
+    read = "";
+    while(!book.eof()){
+
+        book.getline(part, 80, '\n');
+        tempString = part;
+        //cout << part << endl;
+        if(tempString[0] == '<' && tempString[tempString.getLength() -1] == '>' && !first) {
+            //cout << "new page" << endl;
+            //if(!first){
+            //cout << read << endl;
+            rawPages.append(read);
+            //}
+
+            pageCounter++;
+            read = tempString + (char *)" ";
+        }else{
+            first = false;
+            pch = strtok(part,separator);
+            while (pch != NULL){
+//                 if(first){
+//                     read = pch;
+//                     read = read + (char *)" ";
+//                     first = false;
+//                 }else{
+                read = read + pch + (char *)" ";
+//                 }
+                pch = strtok(NULL, separator);
+            }
+        }
+    }
+
+    return rawPages;
+}
+
+DSVector<DSString> getPagesForEachWord(DSVector<DSString> & keyWords, DSVector<DSString> & rawPages){
+    DSString out;
+    DSString word;
+    DSString temp2;
+    DSString temp3((char *)": ");
+    keyWords.sort();
+    DSVector<DSString> pagesAppeared;
+    DSString temp;
+    DSString end((char *)">");
+    DSString tempString;
+    DSString keyWordTemp;
+
+    for(int j = 0; j < keyWords.getSize(); j++){
+        pagesAppeared.append((char *)"-1");
+    }
+
+    for(int x = 0; x < rawPages.getSize(); x++){
+        for(int j = 0; j < keyWords.getSize(); j++){
+            tempString = rawPages[x];
+            keyWordTemp = keyWords[j];
+            tempString.lowercase();
+            keyWordTemp.lowercase();
+
+            if(tempString.contains(keyWordTemp) != -1){
+                temp = pagesAppeared[j];
+                temp2 = tempString.substring(1,tempString.contains(end));
+                if(pagesAppeared[j] == (char *)"-1"){
+                    temp2 = temp2;
+                    pagesAppeared.edit(temp2,j);
+                } else{
+                    temp = temp + (char *)", " + temp2;
+                    pagesAppeared.edit(temp,j);
+                }
+            }
+        }
+    }
+    return pagesAppeared;
+}
+
+
+void writeToOutputFile(char ** argv, DSVector<DSString>& keyWords, DSVector<DSString>& pagesAppeared){
+        bool stop = false;
+
+        int page = 1;
+        DSString pageNumber;
+        DSString pageSearch;
+        DSString starter((char *)"<");
+        int indexStart;
+        int indexEnd;
+        DSVector<DSString> eachPage;
+        bool firstIteration = true;
+
+        DSString keyWordTemp;
+        DSString temp;
+        DSString word;
+        DSString tempString;
+        char currLetter;
+        char nextLetter;
+        ofstream fout;
+        fout.open(argv[3]);
+        DSString tempInt;
+        DSVector<DSString> result;
+        DSVector<int> intResults;
+        int lengthOfLine;
+        for(int j = 0; j < keyWords.getSize(); j++) {
+            nextLetter = keyWords[j][0];
+            if(currLetter != nextLetter){
+                currLetter = nextLetter;
+                fout << "[" << nextLetter << "]" << endl;
+            }
+            word = keyWords[j];
+            temp = pagesAppeared[j];
+            lengthOfLine += word.getLength();
+            fout << word;
+            //cout << temp << endl;
+            result = temp.split((char *)", ");
+            intResults.clear();
+            for(int x = 0; x < result.getSize();x++){
+                tempString = result[x];
+                //cout << "This should be: " << tempString << " but is: " << tempString.getInt()<< endl;
+                intResults.append(tempString.getInt());
+
+
+            }
+            intResults.sort();
+
+            bool start = true;
+            for(int x = 0; x < intResults.getSize();x++){
+                if(start){
+                    tempInt = intResults[x];
+                    temp = (char *)": ";
+                    temp = temp + tempInt;
+                    lengthOfLine += temp.getLength();
+                    start = false;
+                }else {
+                    if(lengthOfLine + 2 > 70){
+                        //cout << "WE IN";
+                        //temp = temp + '\n';
+                        fout << temp << endl;
+                        fout << "    ";
+                        temp = "";
+                        lengthOfLine = 4;
+                    }else{
+                        temp = temp + (char *) ", ";
+                        lengthOfLine += 2;
+                    }
+                    tempInt = intResults[x];
+                    if(lengthOfLine + tempInt.getLength() > 70){
+
+
+                        fout << temp << endl;
+                        fout << "    ";
+                        temp = "";
+                        lengthOfLine = 4;
+                    }
+                    temp = temp + tempInt;
+                    lengthOfLine += tempInt.getLength();
+                }
+            }
+            cout << temp;
+            cout << endl << endl;
+            //cout << lengthOfLine << ": this is the length of line" << endl;
+            fout << temp << endl;
+            lengthOfLine = 0;
+        }
+        fout.close();
 }
