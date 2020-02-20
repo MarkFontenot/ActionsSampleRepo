@@ -208,7 +208,7 @@ DSVector<DSString> getEachPage(char ** argv, char part []){
     int pageCounter = 0;
     DSString tempString;
     read = "";
-    while(!book.eof()){
+    while(!(tempString == (char *)"<-1>")){
 
         book.getline(part, 80, '\n');
         tempString = part;
@@ -306,64 +306,66 @@ void writeToOutputFile(char ** argv, DSVector<DSString>& keyWords, DSVector<DSSt
         DSVector<int> intResults;
         int lengthOfLine;
         for(int j = 0; j < keyWords.getSize(); j++) {
-            nextLetter = keyWords[j][0];
-            if(currLetter != nextLetter){
-                currLetter = nextLetter;
-                fout << "[" << nextLetter << "]" << endl;
-            }
-            word = keyWords[j];
             temp = pagesAppeared[j];
-            lengthOfLine += word.getLength();
-            fout << word;
-            //cout << temp << endl;
-            result = temp.split((char *)", ");
-            intResults.clear();
-            for(int x = 0; x < result.getSize();x++){
-                tempString = result[x];
-                //cout << "This should be: " << tempString << " but is: " << tempString.getInt()<< endl;
-                intResults.append(tempString.getInt());
-
-
-            }
-            intResults.sort();
-
-            bool start = true;
-            for(int x = 0; x < intResults.getSize();x++){
-                if(start){
-                    tempInt = intResults[x];
-                    temp = (char *)": ";
-                    temp = temp + tempInt;
-                    lengthOfLine += temp.getLength();
-                    start = false;
-                }else {
-                    if(lengthOfLine + 2 > 70){
-                        //cout << "WE IN";
-                        //temp = temp + '\n';
-                        fout << temp << endl;
-                        fout << "    ";
-                        temp = "";
-                        lengthOfLine = 4;
-                    }else{
-                        temp = temp + (char *) ", ";
-                        lengthOfLine += 2;
-                    }
-                    tempInt = intResults[x];
-                    if(lengthOfLine + tempInt.getLength() > 70){
-
-
-                        fout << temp << endl;
-                        fout << "    ";
-                        temp = "";
-                        lengthOfLine = 4;
-                    }
-                    temp = temp + tempInt;
-                    lengthOfLine += tempInt.getLength();
+            if(!(temp == (char *)"-1")){
+                nextLetter = keyWords[j][0];
+                if(currLetter != nextLetter){
+                    currLetter = nextLetter;
+                    fout << "[" << nextLetter << "]" << endl;
                 }
+                word = keyWords[j];
+                lengthOfLine += word.getLength();
+                fout << word;
+                //cout << temp << endl;
+                result = temp.split((char *)", ");
+                intResults.clear();
+                for(int x = 0; x < result.getSize();x++){
+                    tempString = result[x];
+                    //cout << "This should be: " << tempString << " but is: " << tempString.getInt()<< endl;
+                    intResults.append(tempString.getInt());
+
+
+                }
+                intResults.sort();
+
+                bool start = true;
+                for(int x = 0; x < intResults.getSize();x++){
+                    if(start){
+                        tempInt = intResults[x];
+                        temp = (char *)": ";
+                        temp = temp + tempInt;
+                        lengthOfLine += temp.getLength();
+                        start = false;
+                    }else {
+                        if(lengthOfLine + 2 > 70){
+                            //cout << "WE IN";
+                            //temp = temp + '\n';
+                            fout << temp << endl;
+                            fout << "    ";
+                            temp = "";
+                            lengthOfLine = 4;
+                        }else{
+                            temp = temp + (char *) ", ";
+                            lengthOfLine += 2;
+                        }
+                        tempInt = intResults[x];
+                        if(lengthOfLine + tempInt.getLength() > 70){
+
+
+                            fout << temp << endl;
+                            fout << "    ";
+                            temp = "";
+                            lengthOfLine = 4;
+                        }
+                        temp = temp + tempInt;
+                        lengthOfLine += tempInt.getLength();
+                    }
+                }
+                cout << temp;
+                cout << endl << endl;
+                //cout << lengthOfLine << ": this is the length of line" << endl;
+                fout << temp << endl;
             }
-            cout << temp;
-            cout << endl << endl;
-            //cout << lengthOfLine << ": this is the length of line" << endl;
-            fout << temp << endl;
             lengthOfLine = 0;
         }
         fout.close();
