@@ -336,7 +336,10 @@ DSString &DSString::operator=(const int input) {
         n = n / 10;
         ++count;
     }
-    data = new char[count];
+    if(input == 0){
+        count = 1;
+    }
+    data = new char[count + 1];
     //char array [count];
     int number = input;
     for (int i = count-1; i >= 0; i--) {
@@ -367,28 +370,28 @@ DSVector<DSString> DSString::split(char splitter []) {
     return result;
 }
 
-DSString DSString::operator+(char rhs) {
-    char * temp = new char[strlen(data) + 1];
-
-
-    int i = 0;
-
-    //iterates through the current DSString's data
-    while(data[i] != '\0'){
-        temp[i] = data[i];
-        i++;
-    }
-//    temp[i] = rhs;
-//   temp++;
-    temp[i] = '\0';
-    //strcat(temp,rhs);
-
-    DSString temp2;
-    temp2 = temp;
-    delete [] temp;//deletes the previously allocated data
-    //delete [] rhsData;
-    return temp2;
-}
+//DSString DSString::operator+(char rhs) {
+//    char * temp = new char[strlen(data) + 1];
+//
+//
+//    int i = 0;
+//
+//    //iterates through the current DSString's data
+//    while(data[i] != '\0'){
+//        temp[i] = data[i];
+//        i++;
+//    }
+////    temp[i] = rhs;
+////   temp++;
+//    temp[i] = '\0';
+//    //strcat(temp,rhs);
+//
+//    DSString temp2;
+//    temp2 = temp;
+//    delete [] temp;//deletes the previously allocated data
+//    //delete [] rhsData;
+//    return temp2;
+//}
 
 int DSString::getInt() {
     return atoi(data);

@@ -21,6 +21,7 @@ public:
     //include assignment operator
     bool operator <(const DSVector<T> & r) const;
     DSVector &operator=(const DSVector<T> &);//assignment operator
+    bool operator==(const DSVector<T>&);
 
     void edit(T, int);
     void sort();
@@ -174,5 +175,18 @@ void DSVector<T>::resize(){
     cap *= 2;
     delete [] data;
     data = temp;
+}
+
+template <class T>
+bool DSVector<T>::operator==(const DSVector<T> & input) {
+    if(input.size != size){
+        return false;
+    }
+    for(int x = 0; x < size; x++){
+        if(!(data[x] == input.data[x])){
+            return false;
+        }
+    }
+    return true;
 }
 #endif //INC_20S_PA02_AUTOINDEXER_DSVECTOR_H

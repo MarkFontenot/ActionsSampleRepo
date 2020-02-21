@@ -26,7 +26,7 @@ public:
     DSString &operator=(const char*);//assignment operator
     DSString &operator=(const int);
     DSString operator+(DSString rhs);//addition operator
-    DSString operator+(char rhs);//addition operator
+  //  DSString operator+(char rhs);//addition operator
     bool operator<(const DSString&)const;//less than operator
     bool operator>(const DSString&)const;//greater than operator
     bool operator==(const DSString&);//equals operator
