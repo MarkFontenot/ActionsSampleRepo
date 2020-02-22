@@ -8,7 +8,7 @@
 
 
 using namespace std;
-void addPageNumbers(char **,char []);
+void addPageNumbers(char **);
 int getNumDigits(int);
 DSVector<DSString> getKeyWords(char **,char []);
 DSVector<DSString> getEachPage(char **, char []);
@@ -18,14 +18,13 @@ void writeToOutputFile(char **, DSVector<DSString>&, DSVector<DSString>&);
 int main(int argc, char **argv) {
     //RUNNING CATCH TESTS
     //argc == 1
-
-    if (true) {
+    if(argc == 1){
         cout << "Running Catch Tests" << endl;
         return Catch::Session().run();
     }
-    char part [81];
+    char part [90];
 
-    //addPageNumbers(argv, part);
+    //addPageNumbers(argv);
 
 
 
@@ -57,13 +56,15 @@ int main(int argc, char **argv) {
     return 0;
 }
 
-void addPageNumbers(char ** argv, char part []){
+void addPageNumbers(char ** argv){
 
     ifstream rawBook;
-    rawBook.open("rawBook.txt");
+    rawBook.open(argv[3]);
     if(!rawBook){
         cout << "File did not open" << endl;
+        exit(1);
     }
+    char part [100];
 
     ofstream finalBook;
     finalBook.open(argv[2]);
@@ -74,15 +75,16 @@ void addPageNumbers(char ** argv, char part []){
     finalBook << 1;
     finalBook << "> " << endl;
     while(!rawBook.eof()){
-        rawBook.getline(part,80,'\n');
+        rawBook.getline(part,90,'\n');
         finalBook << part << endl;
-        //cout << part;
+        cout << part << endl;
         counter++;
         if(counter == 10){
             finalBook << endl;
             finalBook << "<";
             finalBook << pageNumber;
             finalBook << ">" << endl;
+            cout << pageNumber << endl;
             pageNumber++;
             counter = 0;
         }
@@ -120,7 +122,7 @@ DSVector<DSString> getKeyWords(char ** argv, char part []){
     char  separator [] = ".?!:,;\n";
 
     while(!keyWordsFile.eof()){
-        keyWordsFile.getline(part,80,'\n');
+        keyWordsFile.getline(part,100,'\n');
         pch = strtok(part,separator);
         while (pch != NULL){
 //                 if(first){
@@ -165,7 +167,7 @@ DSVector<DSString> getEachPage(char ** argv, char part []){
     read = "";
     while(!(tempString == (char *)"<-1>")){
 
-        book.getline(part, 81, '\n');
+        book.getline(part, 90, '\n');
         tempString = part;
         //cout << part << endl;
         if(tempString[0] == '<' && tempString[tempString.getLength() -1] == '>' && !first) {
@@ -257,7 +259,7 @@ void writeToOutputFile(char ** argv, DSVector<DSString>& keyWords, DSVector<DSSt
         char currLetter;
         char nextLetter;
         ofstream fout;
-        fout.open(argv[3]);
+        fout.open(argv[4]);
         DSString tempInt;
         DSVector<DSString> result;
         DSVector<int> intResults;

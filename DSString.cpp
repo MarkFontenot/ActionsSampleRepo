@@ -259,7 +259,7 @@ istream& operator >>(istream& inStreamIn, DSString& input){
 DSString DSString::substring(int firstIndex, int secondIndex) {
    //cout << firstIndex << endl;
    // cout << secondIndex << endl;
-    if(firstIndex >= secondIndex){
+    if(firstIndex > secondIndex){
         cout << "Invalid indexes" << endl;
         exit(1);
     }

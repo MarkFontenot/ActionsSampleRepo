@@ -378,6 +378,8 @@ TEST_CASE("String class", "[string]"){
         DSString str;
         str = "a test string";
         REQUIRE((str == s[1]));
+
+
         str =DSString((char *)"testString");
         REQUIRE((str == s[0]));
         str = "";
@@ -413,6 +415,12 @@ TEST_CASE("String class", "[string]"){
         REQUIRE(s[9] > s[6]);
         REQUIRE(s[7] > s[6]);
     }
+    SECTION("Less than operator"){
+        REQUIRE(s[1] < s[0]);
+        REQUIRE(s[3] < s[4]);
+        REQUIRE(s[6] < s[9]);
+        REQUIRE(s[6] < s[7]);
+    }
 
     SECTION("Contains"){
         DSString str;
@@ -433,7 +441,6 @@ TEST_CASE("String class", "[string]"){
         REQUIRE(s[0][1] == 'e');
         REQUIRE(s[4][4] == ' ');
         REQUIRE(s[6][0] == 0);
-        REQUIRE(s[0][100] == 'g');
     }
 
     SECTION("getLength function"){
@@ -508,7 +515,7 @@ TEST_CASE("String class", "[string]"){
 
     }
 
-    //DSString int constructor
+
 
 
 }
