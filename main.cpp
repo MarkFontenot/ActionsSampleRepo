@@ -279,7 +279,7 @@ void writeToOutputFile(char ** argv, DSVector<DSString>& keyWords, DSVector<DSSt
                 intResults.clear();
                 for(int x = 0; x < result.getSize();x++){
                     tempString = result[x];
-                    //cout << "This should be: " << tempString << " but is: " << tempString.getInt()<< endl;
+                    cout << "This should be: " << tempString << " but is: " << tempString.getInt()<< endl;
                     intResults.append(tempString.getInt());
 
 
