@@ -220,7 +220,7 @@ DSVector<DSString> getPagesForEachWord(DSVector<DSString> & keyWords, DSVector<D
             keyWordTemp = space + keyWords[j] + space;
             tempString.lowercase();
             keyWordTemp.lowercase();
-            cout << tempString << endl << endl;
+            //tempString << endl << endl;
             if(tempString.contains(keyWordTemp) != -1){
                 temp = pagesAppeared[j];
                 temp2 = tempString.substring(1,tempString.contains(end));
@@ -274,12 +274,12 @@ void writeToOutputFile(char ** argv, DSVector<DSString>& keyWords, DSVector<DSSt
                 word = keyWords[j];
                 lengthOfLine += word.getLength();
                 fout << word;
-                //cout << temp << endl;
+                cout << temp << endl;
                 result = temp.split((char *)", ");
                 intResults.clear();
                 for(int x = 0; x < result.getSize();x++){
                     tempString = result[x];
-                    cout << "This should be: " << tempString << " but is: " << tempString.getInt()<< endl;
+                    //cout << "This should be: " << tempString << " but is: " << tempString.getInt()<< endl;
                     intResults.append(tempString.getInt());
 
 
