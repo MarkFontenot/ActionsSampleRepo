@@ -330,7 +330,7 @@ TEST_CASE("Vector class", "[vector]") {
 }
 
 TEST_CASE("String class", "[string]"){
-    DSString s[11];
+    DSString s[14];
     s[0] = DSString((char *)"testString");
     s[1] = DSString((char *)"a test string");
     s[2] = DSString((char *)"");
@@ -342,6 +342,9 @@ TEST_CASE("String class", "[string]"){
     s[8] =DSString((char *)"                          ");
     s[9] =DSString((char *)"testString");
     s[10] =DSString((char *)"test, String, is,here,");
+    s[11] = DSString((char *)"123");
+    s[12] = DSString((char *)"0");
+    s[13] = DSString((char *)"-5");
 
     SECTION("Equality operators"){
         REQUIRE((s[0] == DSString((char *)"testString")));
@@ -441,6 +444,13 @@ TEST_CASE("String class", "[string]"){
 
         s[6].lowercase();
         REQUIRE((s[6] == s[6]));
+    }
+
+    SECTION("Get int"){
+        REQUIRE(s[11].getInt() == 123);
+        REQUIRE(s[12].getInt() == 0);
+        REQUIRE(s[13].getInt() == -5);
+        REQUIRE(s[1].getInt() == 0);
     }
 
     SECTION("Split"){

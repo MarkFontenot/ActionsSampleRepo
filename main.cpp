@@ -19,7 +19,7 @@ int main(int argc, char **argv) {
     //RUNNING CATCH TESTS
     //argc == 1
 
-    if (true) {
+    if (argc == 1) {
         cout << "Running Catch Tests" << endl;
         return Catch::Session().run();
     }
