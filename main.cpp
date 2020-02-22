@@ -224,9 +224,10 @@ DSVector<DSString> getPagesForEachWord(DSVector<DSString> & keyWords, DSVector<D
             if(tempString.contains(keyWordTemp) != -1){
                 temp = pagesAppeared[j];
                 //cout << temp << endl;
-                temp2 = tempString.substring(1,tempString.contains(end));
+                int lastIndex = tempString.contains(end);
+                temp2 = tempString.substring(1,lastIndex);
                 if(temp == (char *)"-1"){
-                    temp2 = temp2;
+                    //temp2 = temp2;
                     cout << temp2 << endl;
                     pagesAppeared.edit(temp2,j);
                 } else{
