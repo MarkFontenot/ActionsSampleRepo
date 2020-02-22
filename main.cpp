@@ -19,7 +19,7 @@ int main(int argc, char **argv) {
     //RUNNING CATCH TESTS
     //argc == 1
 
-    if (argc == 1) {
+    if (true) {
         cout << "Running Catch Tests" << endl;
         return Catch::Session().run();
     }
@@ -223,12 +223,9 @@ DSVector<DSString> getPagesForEachWord(DSVector<DSString> & keyWords, DSVector<D
             //tempString << endl << endl;
             if(tempString.contains(keyWordTemp) != -1){
                 temp = pagesAppeared[j];
-                //cout << temp << endl;
                 int lastIndex = tempString.contains(end);
                 temp2 = tempString.substring(1,lastIndex);
                 if(temp == (char *)"-1"){
-                    //temp2 = temp2;
-                    cout << temp2 << endl;
                     pagesAppeared.edit(temp2,j);
                 } else{
                     temp = temp + (char *)", " + temp2;

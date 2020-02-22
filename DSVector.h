@@ -4,6 +4,8 @@
 
 #ifndef INC_20S_PA02_AUTOINDEXER_DSVECTOR_H
 #define INC_20S_PA02_AUTOINDEXER_DSVECTOR_H
+#include <iostream>
+using namespace std;
 
 template <class T>
 class DSVector{
@@ -32,14 +34,6 @@ public:
     void clear();
     bool isEmpty();
     bool find(T);
-
-
-
-
-    //sort
-    //binary search
-    //simple search
-
 };
 
 template <class T>
@@ -123,15 +117,19 @@ void DSVector<T>::clear() {
 
 template <class T>
 void DSVector<T>::edit(T input, int index) {
+    if(size - 1 < index || index < 0){
+        cout << "Invalid index" << endl;
+        exit(1);
+    }
     data[index] = input;
 }
 
 
 template <class T>
 T DSVector<T>::operator[](int x) {
-    //if the index requested is larger than the char array return the last element of the array
-    if(cap < x){
-        return data[cap];
+    if(size - 1 < x || x < 0){
+        cout << "Invalid index" << endl;
+        exit(1);
     }else{
         return data[x];
     }
@@ -194,6 +192,10 @@ bool DSVector<T>::operator==(const DSVector<T> & input) {
 template <class T>
 void DSVector<T>::removeAt(int input) {
     //delete [] data;
+    if(input < 0 || input > size -1){
+        cout << "Invalid index.";
+        exit(1);
+    }
     T * newData = new T[size-1];
     int counter = 0;
     for(int x = 0; x < size;x++){

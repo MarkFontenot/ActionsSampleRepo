@@ -162,15 +162,32 @@ TEST_CASE("Vector class", "[vector]") {
 
     SECTION("== operator"){
         DSVector<DSString> temp;
+        DSVector<DSString> temp1;
+        temp = temp1;
+        REQUIRE((temp1 == temp));
+
         temp = vector1;
         REQUIRE((vector1 == temp));
+        temp = vector2;
+        REQUIRE((vector2 == temp));
+
+        DSVector<int> temp2;
+        temp2 = vector3;
+        REQUIRE((vector3 == temp2));
+        DSVector<char *> temp3;
+        temp3 = vector4;
+        REQUIRE((vector4 == temp3));
+
+
     }
     //DONE
-    SECTION("getLength function") {
+    SECTION("Get size function") {
         REQUIRE((vector1.getSize() == 10));
         REQUIRE((vector2.getSize() == 11));
         REQUIRE((vector3.getSize() == 10));
         REQUIRE((vector4.getSize() == 10));
+        vector4.clear();
+        REQUIRE((vector4.getSize() == 0));
     }
 
     SECTION("Sort"){

@@ -260,9 +260,8 @@ DSString DSString::substring(int firstIndex, int secondIndex) {
    //cout << firstIndex << endl;
    // cout << secondIndex << endl;
     if(firstIndex >= secondIndex){
-        DSString temp2;
-        cout << endl << "WE ARE EXPECTING AN ERROR" << endl;
-        return temp2;
+        cout << "Invalid indexes" << endl;
+        exit(1);
     }
     //no need for + 1 because secondIndex isn't inclusive
     char * temp = new char[secondIndex - firstIndex + 1];
@@ -306,7 +305,8 @@ char * DSString::c_str() {
 char DSString::operator[](int x) {
     //if the index requested is larger than the char array return the last element of the array
     if(strlen(data) < x){
-        return data[strlen(data) - 1];
+        cout << "Index out of bounds";
+        exit(1);
     }else{
         return data[x];
     }
