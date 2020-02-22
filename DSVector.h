@@ -27,6 +27,7 @@ public:
     void sort();
     T operator[](int);
     void append(T);
+    void removeAt(int);
     int getSize()const;
     void clear();
     bool isEmpty();
@@ -188,5 +189,22 @@ bool DSVector<T>::operator==(const DSVector<T> & input) {
         }
     }
     return true;
+}
+
+template <class T>
+void DSVector<T>::removeAt(int input) {
+    //delete [] data;
+    T * newData = new T[size-1];
+    int counter = 0;
+    for(int x = 0; x < size - 1;x++){
+        if(x != input){
+            newData[counter] = data[x];
+            counter++;
+        }
+    }
+    delete [] data;
+    size = size-1;
+    data = newData;
+
 }
 #endif //INC_20S_PA02_AUTOINDEXER_DSVECTOR_H

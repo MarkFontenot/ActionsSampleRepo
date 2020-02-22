@@ -111,15 +111,15 @@ TEST_CASE("Vector class", "[vector]") {
         DSString temp((char *) "testString");
         REQUIRE((vector1[0] == temp));
         REQUIRE((vector2[0] == temp));
-        char * temp2 = "testString";
+        char * temp2 = (char *)"testString";
 
         REQUIRE((vector4[0] == temp2));
 
-        temp = "testString";
+        temp = (char *)"testString";
         REQUIRE((vector1[vector1.getSize() - 1] == temp));
-        temp2 = "testString";
+        temp2 = (char *)"testString";
         REQUIRE((vector4[vector4.getSize() - 1]  == temp2));
-        temp = "An extra string";
+        temp = (char *)"An extra string";
         REQUIRE((vector2[vector2.getSize() - 1] == temp));
 
 
@@ -140,6 +140,19 @@ TEST_CASE("Vector class", "[vector]") {
         REQUIRE((vector2.getSize() == 11));
         REQUIRE((vector3.getSize() == 10));
         REQUIRE((vector4.getSize() == 10));
+    }
+
+    SECTION("Remove at"){
+        vector2.removeAt(vector2.getSize() - 1);
+        REQUIRE((vector1 == vector2));
+        
+        DSVector<int> temp;
+        temp.append(1);
+        temp.removeAt(0);
+        REQUIRE((temp.isEmpty() == true));
+
+
+
     }
 
 //    SECTION("Substring function") {
@@ -305,7 +318,7 @@ TEST_CASE("String class", "[string]"){
     }
 
     SECTION("Split"){
-        char *spliter = " ";
+        char *spliter = (char *)" ";
         DSVector<DSString> y;
         DSString x;
         x = "split";
@@ -324,13 +337,13 @@ TEST_CASE("String class", "[string]"){
         y.append(x);
         x = "here";
         y.append(x);
-        char * spliter2 = ", ";
+        char * spliter2 = (char *)", ";
         REQUIRE((y == s[10].split(spliter2)));
         y.clear();
         REQUIRE((y == s[6].split(spliter2)));
         REQUIRE((y == s[6].split(spliter)));
         y.append(s[0]);
-        char * spliter3 = "";
+        char * spliter3 = (char *)"";
         REQUIRE((y == s[0].split(spliter3)));
 
 
