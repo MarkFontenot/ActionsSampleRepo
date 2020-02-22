@@ -91,6 +91,36 @@ TEST_CASE("Vector class", "[vector]") {
 //        REQUIRE(s[7] > s[6]);
 //    }
 
+    SECTION("Is Empty"){
+        DSVector<DSString> temp;
+        REQUIRE(temp.isEmpty() == true);
+        DSString x((char *)"hello");
+        temp.append(x);
+        REQUIRE(temp.isEmpty() == false);
+        temp.removeAt(0);
+        REQUIRE(temp.isEmpty() == true);
+    }
+
+    SECTION("Clear all"){
+        vector1.clear();
+        REQUIRE(vector1.isEmpty() == true);
+        REQUIRE(vector1.getSize() == 0);
+        vector2.clear();
+        REQUIRE(vector2.isEmpty() == true);
+        REQUIRE(vector2.getSize() == 0);
+        vector3.clear();
+        REQUIRE(vector3.isEmpty() == true);
+        REQUIRE(vector3.getSize() == 0);
+        vector4.clear();
+        REQUIRE(vector4.isEmpty() == true);
+        REQUIRE(vector4.getSize() == 0);
+
+        DSVector<DSString> temp;
+        temp.clear();
+        REQUIRE(temp.isEmpty() == true);
+        REQUIRE(temp.getSize() == 0);
+    }
+
     SECTION("Find") {
         DSString str;
 
@@ -98,12 +128,22 @@ TEST_CASE("Vector class", "[vector]") {
         REQUIRE((vector1.find(str) == true));
         str = "hello";
         REQUIRE((vector1.find(str) == false));
-        //REQUIRE((s[0].contains(s[9]) != -1));
+
         str = "Stringtest";
         REQUIRE((vector1.find(str) == false));
 
         str = "a test strin";
-        REQUIRE(vector1.find(str) == false);
+        REQUIRE((vector1.find(str) == false));
+
+        REQUIRE((vector3.find(3) == true));
+        REQUIRE((vector3.find(23) == true));
+        REQUIRE((vector3.find(76) == true));
+        REQUIRE((vector3.find(1) == true));
+
+        REQUIRE((vector4.find((char*)"testString") == true));
+        REQUIRE((vector4.find((char*)"hello") == false));
+        REQUIRE((vector4.find((char*)"Stringtest") == false));
+        REQUIRE((vector4.find((char*)"a test strin") == false));
     }
 
         //DONE
@@ -140,6 +180,74 @@ TEST_CASE("Vector class", "[vector]") {
         REQUIRE((vector2.getSize() == 11));
         REQUIRE((vector3.getSize() == 10));
         REQUIRE((vector4.getSize() == 10));
+    }
+
+    SECTION("Sort"){
+        vector1.sort();
+        vector2.sort();
+        vector3.sort();
+        vector4.sort();
+        DSString temp;
+        temp = "";
+
+        REQUIRE((vector1[0] == temp));
+
+        REQUIRE((vector1[1] == temp));
+        temp = "\n";
+        REQUIRE((vector1[2] == temp));
+        temp = "                          ";
+        REQUIRE((vector1[3] == temp));
+        temp = "  split  split  split  ";
+        REQUIRE((vector1[4] == temp));
+        temp = "THIS IS AN UPPERCASE STRING";
+        REQUIRE((vector1[5] == temp));
+        temp = "a test string";
+        REQUIRE((vector1[6] == temp));
+        temp = "testString";
+        REQUIRE((vector1[7] == temp));
+        temp = "testString";
+        REQUIRE((vector1[8] == temp));
+        temp = "this is an uppercase string";
+        REQUIRE((vector1[9] == temp));
+        char * temp2;
+        temp2 = (char *)"";
+
+        REQUIRE((vector1[0] == temp2));
+
+        REQUIRE((vector1[1] == temp2));
+        temp2 = (char *)"\n";
+        REQUIRE((vector1[2] == temp2));
+        temp2 = (char *)"                          ";
+        REQUIRE((vector1[3] == temp2));
+        temp2 = (char *)"  split  split  split  ";
+        REQUIRE((vector1[4] == temp2));
+        temp2 = (char *)"THIS IS AN UPPERCASE STRING";
+        REQUIRE((vector1[5] == temp2));
+        temp2 = (char *)"a test string";
+        REQUIRE((vector1[6] == temp2));
+        temp2 = (char *)"testString";
+        REQUIRE((vector1[7] == temp2));
+        temp2 = (char *)"testString";
+        REQUIRE((vector1[8] == temp2));
+        temp2 = (char *)"this is an uppercase string";
+        REQUIRE((vector1[9] == temp2));
+
+
+        REQUIRE(vector3[0] == 1);
+        REQUIRE(vector3[1] == 2);
+        REQUIRE(vector3[2] == 3);
+        REQUIRE(vector3[3] == 5);
+        REQUIRE(vector3[4] == 10);
+        REQUIRE(vector3[5] == 23);
+        REQUIRE(vector3[6] == 65);
+        REQUIRE(vector3[7] == 76);
+        REQUIRE(vector3[8] == 100);
+        REQUIRE(vector3[9] == 13241);
+
+        DSVector<DSString> tempVec;
+        tempVec.sort();
+        REQUIRE(tempVec.isEmpty() == true);
+
     }
 
     SECTION("Remove at"){
@@ -322,6 +430,17 @@ TEST_CASE("String class", "[string]"){
         REQUIRE(strcmp(s[0].c_str(), "testString") == 0);
         REQUIRE(strcmp(s[9].c_str(), s[0].c_str()) == 0);
         REQUIRE(strcmp(s[2].c_str(), "") == 0);
+    }
+
+    SECTION("lowercase"){
+        s[3].lowercase();
+        REQUIRE((s[3] == s[4]));
+
+        s[4].lowercase();
+        REQUIRE((s[4] == s[4]));
+
+        s[6].lowercase();
+        REQUIRE((s[6] == s[6]));
     }
 
     SECTION("Split"){
