@@ -45,11 +45,6 @@ int main(int argc, char **argv) {
 
     DSVector<DSString> pagesAppeared;
     pagesAppeared = getPagesForEachWord(keyWords,rawPages);
-    DSString temp;
-    for(int x = 0; x < pagesAppeared.getSize(); x++){
-        temp = pagesAppeared[x];
-        cout << temp << endl << endl;
-    }
     cout << "We know where the key words appear" << endl;
 
     //cout << pagesAppeared.getSize();
@@ -228,9 +223,11 @@ DSVector<DSString> getPagesForEachWord(DSVector<DSString> & keyWords, DSVector<D
             //tempString << endl << endl;
             if(tempString.contains(keyWordTemp) != -1){
                 temp = pagesAppeared[j];
+                //cout << temp << endl;
                 temp2 = tempString.substring(1,tempString.contains(end));
-                if(pagesAppeared[j] == (char *)"-1"){
+                if(temp == (char *)"-1"){
                     temp2 = temp2;
+                    cout << temp2 << endl;
                     pagesAppeared.edit(temp2,j);
                 } else{
                     temp = temp + (char *)", " + temp2;
