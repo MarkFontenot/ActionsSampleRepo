@@ -19,7 +19,7 @@ public:
     //include copy constructor
     //include destructor
     //include assignment operator
-    bool operator <(const DSVector<T> & r) const;
+    //bool operator <(const DSVector<T> & r) const;
     DSVector &operator=(const DSVector<T> &);//assignment operator
     bool operator==(const DSVector<T>&);
 
@@ -32,7 +32,7 @@ public:
     void clear();
     bool isEmpty();
     bool find(T);
-    void makeUnique();
+
 
 
 
@@ -92,14 +92,14 @@ DSVector<T>::~DSVector() {
     //}
 }
 
-template <class T>
-bool DSVector<T>::operator<(const DSVector<T> & r) const {
-    if(!data[0] < r.data){
-        return false;
-    }else{
-        return true;
-    }
-}
+//template <class T>
+//bool DSVector<T>::operator<(const DSVector<T> & r) const {
+//    if(!data[0] < r.data){
+//        return false;
+//    }else{
+//        return true;
+//    }
+//}
 
 
 template <class T>

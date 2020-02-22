@@ -57,39 +57,30 @@ TEST_CASE("Vector class", "[vector]") {
     vector4.append((char *) "                          ");
     vector4.append((char *) "testString");
 
-//    SECTION("Equality operators") {
-//        REQUIRE((s[0] == DSString((char *) "testString")));
-//        REQUIRE((s[0] == s[9]));
-//        REQUIRE((s[2] == (char *) ""));
-//        REQUIRE((s[1] == (char *) "a test string"));
-//        REQUIRE((!(s[3] == s[4])));
-//    }
-//
-//    SECTION("Assignment operators") {
-//        DSString str;
-//        str = "a test string";
-//        REQUIRE((str == s[1]));
-//        str = DSString((char *) "testString");
-//        REQUIRE((str == s[0]));
-//        str = "";
-//        REQUIRE((str == s[6]));
-//        str = DSString((char *) "\n");
-//        REQUIRE((str == s[5]));
-//    }
-//
-//    SECTION("Addition operator") {
-//        REQUIRE((DSString((char *) "testStringtestString") == s[0] + s[9]));
-//        REQUIRE((s[6] + s[6] == (char *) ""));
-//        REQUIRE((s[5] + s[6] == DSString((char *) "\n")));
-//        REQUIRE((s[0] + s[1] + s[2] == (char *) "testStringa test string"));
-//    }
+    SECTION("Append"){
+        DSVector<DSString> temp;
+        DSString x;
+        x = "hello";
+        temp.append(x);
+        REQUIRE((temp[0] == x));
+        x = "another test";
+        temp.append(x);
+        REQUIRE((temp[1] == x));
 
-//    SECTION("Greater than operator") {
-//        REQUIRE(s[0] > s[1]);
-//        REQUIRE(s[4] > s[3]);
-//        REQUIRE(s[9] > s[6]);
-//        REQUIRE(s[7] > s[6]);
-//    }
+
+        DSVector<int> temp2;
+        temp2.append(3);
+        REQUIRE(temp2[0] == 3);
+        temp2.append(-23);
+        REQUIRE(temp2[1] == -23);
+
+
+        DSVector<char *> temp3;
+        temp3.append((char *)"hello");
+        REQUIRE(temp3[0] == (char *)"hello");
+        temp3.append((char *)"hello again");
+        REQUIRE(temp3[1] == (char *)"hello again");
+    }
 
     SECTION("Is Empty"){
         DSVector<DSString> temp;
@@ -270,25 +261,37 @@ TEST_CASE("Vector class", "[vector]") {
         REQUIRE((vector4[8] == (char *)"testString"));
     }
 
-//    SECTION("Substring function") {
-//        REQUIRE((s[0].substring(0, 5) == (char *) "testS"));
-//        REQUIRE((s[4].substring(0, 4) == (char *) "this"));
-//        REQUIRE((s[4].substring(1, 4) == (char *) "his"));
-//    }
-//
-//    SECTION("c_str function") {
-//        REQUIRE(strcmp(s[0].c_str(), "testString") == 0);
-//        REQUIRE(strcmp(s[9].c_str(), s[0].c_str()) == 0);
-//        REQUIRE(strcmp(s[2].c_str(), "") == 0);
-//    }
-//
-//    SECTION("Find"){
-//        DSString str;
-//        str = "testString";
-//        REQUIRE((s.find(str) == true));
-//        str = "ring";
-//        REQUIRE((s.find(str) == false));
-//    }
+    SECTION("= operator"){
+        vector1 = vector2;
+        for(int x = 0; x < vector1.getSize();x++){
+            REQUIRE((vector1[x] == vector2[x]));
+        }
+        vector2.clear();
+        vector1 = vector2;
+        REQUIRE((vector1.isEmpty() == true));
+        REQUIRE((vector1.getSize() == 0));
+
+        DSVector<int> vectInt;
+        vectInt = vector3;
+        for(int x = 0; x < vectInt.getSize();x++){
+            REQUIRE((vectInt[x] == vector3[x]));
+        }
+        vector3.clear();
+        vectInt = vector3;
+        REQUIRE((vectInt.isEmpty() == true));
+        REQUIRE((vectInt.getSize() == 0));
+
+        DSVector<char *> vectChar;
+        vectChar = vector4;
+        for(int x = 0; x < vectChar.getSize();x++){
+            REQUIRE((vectChar[x] == vector4[x]));
+        }
+        vector4.clear();
+        vectChar = vector4;
+        REQUIRE((vectChar.isEmpty() == true));
+        REQUIRE((vectChar.getSize() == 0));
+    }
+
 
         //DONE
     SECTION("Edit"){

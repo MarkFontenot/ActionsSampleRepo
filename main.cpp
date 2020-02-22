@@ -54,80 +54,6 @@ int main(int argc, char **argv) {
     cout << "We have written to output file" << endl;
 
 
-
-
-
-
-
-     //k.clear();
-
-
-     //read.lowercase();
-
-
-
-    // cout << read;
-
-    //cout << read;
-
-//     while(!stop){
-//         pageNumber = page;
-//         //pageSearch = starter + pageNumber + (char *)">";
-//         //cout << pageSearch;
-//         indexStart = indexEnd;
-//         if(firstIteration){
-//             indexStart = 0;
-//             firstIteration = false;
-//         }
-//
-//         //indexStart = read.contains(pageSearch);
-//         pageNumber = page + 1;
-//         pageSearch = starter + pageNumber + (char *)">";
-//         //cout << pageSearch << endl;
-//         indexEnd = read.contains(pageSearch);
-//
-//
-//         if(indexStart == -1){
-//             stop = true;
-//         }else if(indexEnd == -1){
-//             stop = true;
-//             //temp5 = read.substring(indexStart,read.getLength()-1);
-//             //cout << temp5 << endl;
-//
-//             eachPage.append(read.substring(indexStart,read.getLength()-1));
-//         }else{
-//             //temp5 = read.substring(indexStart,indexEnd);
-//             //cout << temp5 << endl;
-//             eachPage.append(read.substring(indexStart,indexEnd));
-//             //read = read.substring(indexEnd,read.getLength()-1);
-//         }
-//         cout << endl << endl;
-//         page++;
-//     }
-
-
-//     for(int x = 0; x < eachPage.getSize(); x++){
-//         out = eachPage[x];
-//         //cout << out << endl;
-//         for(int j = 0; j < keyWords.getSize(); j++){
-//             word = keyWords[j];
-//             if(out.contains(word) != -1){
-//                 temp = pagesAppeared[j];
-//                 temp2 = (x+1);
-//
-//
-//                 if(pagesAppeared[j] == (char *)"-1"){
-//                     temp2 = temp3 + temp2;
-//                     pagesAppeared.edit(temp2,j);
-//                 } else{
-//                     temp = temp + (char *)", " + temp2;
-//                     pagesAppeared.edit(temp,j);
-//                 }
-//             }
-//         }
-//
-//     }
-
     return 0;
 }
 
@@ -280,7 +206,7 @@ DSVector<DSString> getPagesForEachWord(DSVector<DSString> & keyWords, DSVector<D
     DSVector<DSString> pagesAppeared;
     DSString temp;
     DSString end((char *)">");
-    DSString tempString;
+    DSString tempString((char *)"");
     DSString keyWordTemp;
     DSString space((char *)" ");
 
