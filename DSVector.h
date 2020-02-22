@@ -196,14 +196,14 @@ void DSVector<T>::removeAt(int input) {
     //delete [] data;
     T * newData = new T[size-1];
     int counter = 0;
-    for(int x = 0; x < size - 1;x++){
+    for(int x = 0; x < size;x++){
         if(x != input){
             newData[counter] = data[x];
             counter++;
         }
     }
     delete [] data;
-    size = size-1;
+    size = size - 1;
     data = newData;
 
 }

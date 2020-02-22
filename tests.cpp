@@ -145,14 +145,21 @@ TEST_CASE("Vector class", "[vector]") {
     SECTION("Remove at"){
         vector2.removeAt(vector2.getSize() - 1);
         REQUIRE((vector1 == vector2));
-        
+
         DSVector<int> temp;
         temp.append(1);
         temp.removeAt(0);
         REQUIRE((temp.isEmpty() == true));
 
 
-
+        vector4.removeAt(3);
+        REQUIRE((vector4.getSize() == 9));
+        REQUIRE((vector4[3] == (char *)"this is an uppercase string"));
+        REQUIRE((vector4[4] == (char *)"\n"));
+        REQUIRE((vector4[5] == (char *)""));
+        REQUIRE((vector4[6] == (char *)" split split split "));
+        REQUIRE((vector4[7] == (char *)"                          "));
+        REQUIRE((vector4[8] == (char *)"testString"));
     }
 
 //    SECTION("Substring function") {
