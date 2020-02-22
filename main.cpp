@@ -45,6 +45,11 @@ int main(int argc, char **argv) {
 
     DSVector<DSString> pagesAppeared;
     pagesAppeared = getPagesForEachWord(keyWords,rawPages);
+    DSString temp;
+    for(int x = 0; x < pagesAppeared.getSize(); x++){
+        temp = pagesAppeared[x];
+        cout << temp << endl << endl;
+    }
     cout << "We know where the key words appear" << endl;
 
     //cout << pagesAppeared.getSize();
@@ -138,7 +143,7 @@ DSVector<DSString> getKeyWords(char ** argv, char part []){
         read.lowercase();
 
         if(!keyWords.find(read)){
-            cout << read << "   this is the read" << endl;
+            //cout << read << "   this is the read" << endl;
             keyWords.append(read);
         }
 
@@ -274,7 +279,7 @@ void writeToOutputFile(char ** argv, DSVector<DSString>& keyWords, DSVector<DSSt
                 word = keyWords[j];
                 lengthOfLine += word.getLength();
                 fout << word;
-                cout << temp << endl;
+                //cout << temp << endl;
                 result = temp.split((char *)", ");
                 intResults.clear();
                 for(int x = 0; x < result.getSize();x++){
