@@ -199,12 +199,12 @@ DSVector<DSString> getEachPage(char ** argv, char part []){
 
 DSVector<DSString> getPagesForEachWord(DSVector<DSString> & keyWords, DSVector<DSString> & rawPages){
     //DSString out;
-    DSString word;
-    DSString temp2;
+    DSString word((char *)"");
+    DSString temp2((char *)"");
     DSString temp3((char *)": ");
     keyWords.sort();
     DSVector<DSString> pagesAppeared;
-    DSString temp;
+    DSString temp((char *)"");
     DSString end((char *)">");
     DSString tempString((char *)"");
     DSString keyWordTemp;
