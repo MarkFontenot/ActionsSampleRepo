@@ -369,6 +369,15 @@ DSVector<DSString> DSString::split(char splitter []) {
 
     return result;
 }
+DSString DSString::remove(char input []){
+    DSString temp((char*)"");
+    char * token = strtok(data, input);
+    while(token != NULL){
+        temp = temp + token;
+        token = strtok(data, input);
+    }
+    return temp;
+}
 
 //DSString DSString::operator+(char rhs) {
 //    char * temp = new char[strlen(data) + 1];

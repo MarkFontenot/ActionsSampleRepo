@@ -508,11 +508,14 @@ TEST_CASE("String class", "[string]"){
         y.append(s[0]);
         char * spliter3 = (char *)"";
         REQUIRE((y == s[0].split(spliter3)));
+    }
 
+    SECTION("Remove"){
+        char temp []= " ";
 
-
-
-
+        DSString temp2;
+        temp2 = (char *)"splitsplitsplit";
+        REQUIRE((s[7].remove(temp) == temp2));
     }
 
 

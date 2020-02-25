@@ -40,6 +40,7 @@ public:
     DSString substring(int, int);
     void lowercase();
     DSVector<DSString> split(char []);
+    DSString remove(char []);
 
 
 
