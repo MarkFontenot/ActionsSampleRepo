@@ -8,7 +8,7 @@ env:
   ###   List them in the order that they need to appear in Argv param of main.
   ###   Output Files will follow input files
   ###   Note: These should be the actual names of the files.  No double quotes
-  INPUT_FILES: wordsInput.txt bookInput.txt
+  INPUT_FILES: wordsInput.txt bookInput.txt rawBook.txt
   OUTPUT_FILES: output01.txt
 
 jobs:
