@@ -163,6 +163,11 @@ TEST_CASE("Vector class", "[vector]") {
         }catch(exception & e){
             REQUIRE(strcmp(e.what(),(char *)"out of range in [] function") == 0);
         }
+        try{
+            vector1[-1];
+        }catch(exception & e){
+            REQUIRE(strcmp(e.what(),(char *)"out of range in [] function") == 0);
+        }
     }
 
 
@@ -282,6 +287,17 @@ TEST_CASE("Vector class", "[vector]") {
         REQUIRE((vector4[6] == (char *)" split split split "));
         REQUIRE((vector4[7] == (char *)"                          "));
         REQUIRE((vector4[8] == (char *)"testString"));
+
+        try{
+            vector4.removeAt(-1);
+        }catch(exception & e){
+            REQUIRE(strcmp(e.what(),(char *)"out of range in removeAt function") == 0);
+        }
+        try{
+            vector4.removeAt(1000);
+        }catch(exception & e){
+            REQUIRE(strcmp(e.what(),(char *)"out of range in removeAt function") == 0);
+        }
     }
 
     SECTION("= operator"){
@@ -335,24 +351,18 @@ TEST_CASE("Vector class", "[vector]") {
         char * temp = (char *)"this element was changed";
         vector4.edit(temp, 6);
         REQUIRE((vector4[6] == temp));
+        try{
+            vector4.edit(temp, 1000);
+        }catch(exception & e){
+            REQUIRE(strcmp(e.what(),(char *)"out of range in edit function") == 0);
+        }
+        try{
+            vector4.edit(temp, -1);
+        }catch(exception & e){
+            REQUIRE(strcmp(e.what(),(char *)"out of range in edit function") == 0);
+        }
     }
 
-//    SECTION("Get Size"){
-//        REQUIRE(s.getSize() == 10);
-//    }
-//
-//
-//        //NEEDS to get done
-//    SECTION("Clear all"){
-//        REQUIRE((s.isEmpty() == false));
-//        s.clear();
-//        REQUIRE((s.isEmpty() == true));
-//    }
-//
-//    SECTION("Clear"){
-//        s.clear();
-//        REQUIRE(s.getSize() == 0);
-//    }
 }
 
 TEST_CASE("String class", "[string]"){
