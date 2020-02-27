@@ -18,11 +18,11 @@ void writeToOutputFile(char **, DSVector<DSString>&, DSVector<DSString>&);
 int main(int argc, char **argv) {
     //RUNNING CATCH TESTS
     //argc == 1
-    if(argc == 1){
+    if(true){
         cout << "Running Catch Tests" << endl;
         return Catch::Session().run();
     }
-    char part [90];
+    char part [500];
 
     //addPageNumbers(argv);
 
@@ -40,11 +40,16 @@ int main(int argc, char **argv) {
     rawPages = getEachPage(argv,part);
 
     cout << "We have the pages in" << endl;
-
+    DSString temp;
+    for(int x = 0;x < rawPages.getSize();x++){
+        temp = rawPages[x];
+        cout << temp << endl;
+    }
 
     DSVector<DSString> pagesAppeared;
     pagesAppeared = getPagesForEachWord(keyWords,rawPages);
     cout << "We know where the key words appear" << endl;
+
 
     //cout << pagesAppeared.getSize();
 
@@ -119,7 +124,7 @@ DSVector<DSString> getKeyWords(char ** argv, char part []){
         exit(1);
     }
     char * pch;
-    char  separator [] = ".?!:,;\n";
+    char  separator [] = ".?!:,;'\"/\[]{}\n";
 
     while(!keyWordsFile.eof()){
         keyWordsFile.getline(part,100,'\n');
@@ -135,9 +140,10 @@ DSVector<DSString> getKeyWords(char ** argv, char part []){
             pch = strtok(NULL, separator);
         }
         //read = part;
-
-
+        //cout << read << "   this is the read" << endl;
+        read = read.remove((char *)"'");
         read.lowercase();
+        //cout << read << "   this is the read" << endl;
 
         if(!keyWords.find(read)){
             //cout << read << "   this is the read" << endl;
@@ -160,40 +166,70 @@ DSVector<DSString> getEachPage(char ** argv, char part []){
     DSString read;
     bool first = true;
     char * pch;
-    char  separator [] = " .?-\"\t!:,;\n";
+    char  separator [] = " .?\"\t!:/\[]{}',;\n";
+
     DSVector<DSString> rawPages;
     int pageCounter = 0;
     DSString tempString;
     read = "";
+    DSString pageAt;
+    bool isInt = true;
     while(!(tempString == (char *)"<-1>")){
 
-        book.getline(part, 90, '\n');
+        book.getline(part, 500, '\n');
         tempString = part;
         //cout << part << endl;
+
         if(tempString[0] == '<' && tempString[tempString.getLength() -1] == '>' && !first) {
             //cout << "new page" << endl;
             //if(!first){
             //cout << read << endl;
-            rawPages.append(read);
 
-            //}
-
-            pageCounter++;
-            read = tempString + (char *)" ";
-        }else{
-            first = false;
-            pch = strtok(part,separator);
-            while (pch != NULL){
+            pageAt = tempString.substring(1,tempString.getLength() -1);
+            cout << pageAt << endl;
+            if(pageAt.getLength() > 1){
+                cout << "we are inside this" << endl;
+                for(int x = 1; x < pageAt.getLength(); x++){
+                    cout << pageAt[x] << endl;
+                    if(!isdigit(pageAt[x])){
+                        isInt = false;
+                        cout << "we have found false" << endl;
+                    }
+                }
+            }else{
+                if(!isdigit(pageAt[0])){
+                    cout << "we have found false" << endl;
+                    isInt = false;
+                }
+            }
+            if(isInt){
+                read = read.remove((char *)"'");
+                rawPages.append(read);
+                pageCounter++;
+                read = tempString + (char *)" ";
+            }else{
+                first = false;
+                pch = strtok(part,separator);
+                while (pch != NULL){
 //                 if(first){
 //                     read = pch;
 //                     read = read + (char *)" ";
 //                     first = false;
 //                 }else{
-                read = read + pch + (char *)" ";
+                    read = read + pch + (char *)" ";
 //                 }
+                    pch = strtok(NULL, separator);
+                }
+            }
+        }else{
+            first = false;
+            pch = strtok(part,separator);
+            while (pch != NULL){
+                read = read + pch + (char *)" ";
                 pch = strtok(NULL, separator);
             }
         }
+        isInt = true;
     }
 
     return rawPages;

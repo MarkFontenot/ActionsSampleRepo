@@ -6,6 +6,7 @@
 #include <iostream>
 #include <vector>
 #include <cstring>
+#include <stdexcept>
 
 using namespace std;
 
@@ -260,8 +261,13 @@ DSString DSString::substring(int firstIndex, int secondIndex) {
    //cout << firstIndex << endl;
    // cout << secondIndex << endl;
     if(firstIndex > secondIndex){
-        cout << "Invalid indexes" << endl;
-        exit(1);
+        throw invalid_argument("Invalid indexes in substring method");
+    }
+    if(secondIndex > strlen(data)){
+        throw out_of_range("Second index out of range in substring method");
+    }
+    if(firstIndex < 0){
+        throw out_of_range("First index out of range in substring method");
     }
     //no need for + 1 because secondIndex isn't inclusive
     char * temp = new char[secondIndex - firstIndex + 1];
@@ -304,9 +310,8 @@ char * DSString::c_str() {
  */
 char DSString::operator[](int x) {
     //if the index requested is larger than the char array return the last element of the array
-    if(strlen(data) < x){
-        cout << "Index out of bounds";
-        exit(1);
+    if( x < 0 ||strlen(data) < x){
+        throw out_of_range("Index out of range in [] method");
     }else{
         return data[x];
     }
@@ -319,7 +324,6 @@ char DSString::operator[](int x) {
  * Params: N/A
  * Return: void
  */
-
 void DSString::lowercase() {
     //no need for + 1 because secondIndex isn't inclusive
     for(int x = 0; x < strlen(data); x++){
@@ -327,9 +331,15 @@ void DSString::lowercase() {
     }
 }
 
+/*Operator = (for int)
+ *This method allows an integer to be assigned to a DSString.
+ *
+ * Return: DSString&
+ */
 DSString &DSString::operator=(const int input) {
     delete[] data;//clears current data
 
+    //check num digits in input
     int n = input;
     int count = 0;
     while (n != 0) {
@@ -339,69 +349,80 @@ DSString &DSString::operator=(const int input) {
     if(input == 0){
         count = 1;
     }
+
+
     data = new char[count + 1];
-    //char array [count];
+
+    //inputs the int into data as a char
     int number = input;
     for (int i = count-1; i >= 0; i--) {
         int x = (number % 10);
-        char c = '0' + x;
+        char c = '0' + x;//converts int to char
         data[i] = c;
         number /= 10;
     }
+
+    //adds null terminating character
     data[count] = '\0';
 
     return *this;
 }
 
+/* Split
+ * Splits a DSString on a character array and returns
+ * a DSVector of DSStrings with each element that was seperated.
+ *
+ * Return: DSVector<DSString>
+ */
 DSVector<DSString> DSString::split(char splitter []) {
     DSVector<DSString> result;
     DSString temp;
 
+    //seperates DSString on input
     char *token = strtok(data, splitter);
-
-
     while (token != NULL)
     {
         temp = token;
-        result.append(temp);
+        result.append(temp);//appends seperated element to vector
         token = strtok(NULL, splitter);
     }
-
     return result;
 }
+
+/* Remove
+ * This method removes all instances of the char array passed in and
+ * returns a new DSString
+ *
+ * Return: DSString
+ */
 DSString DSString::remove(char input []){
     DSString temp((char*)"");
+
+    //seperates DSString on input
     char * token = strtok(data, input);
     while(token != NULL){
-        temp = temp + token;
-        token = strtok(data, input);
+        temp = temp + token;//adds each element seperated to temp
+        token = strtok(NULL, input);
     }
     return temp;
 }
 
-//DSString DSString::operator+(char rhs) {
-//    char * temp = new char[strlen(data) + 1];
-//
-//
-//    int i = 0;
-//
-//    //iterates through the current DSString's data
-//    while(data[i] != '\0'){
-//        temp[i] = data[i];
-//        i++;
-//    }
-////    temp[i] = rhs;
-////   temp++;
-//    temp[i] = '\0';
-//    //strcat(temp,rhs);
-//
-//    DSString temp2;
-//    temp2 = temp;
-//    delete [] temp;//deletes the previously allocated data
-//    //delete [] rhsData;
-//    return temp2;
-//}
-
+/* GetInt
+ * Returns data in the DSString as an int. Throws error if a non digit char is present.
+ *
+ * Return: int
+ */
 int DSString::getInt() {
+    if(strlen(data) > 1){
+        for(int x = 1; x < strlen(data); x++){
+            if(!isdigit(data[x])){
+                throw invalid_argument("DSString is not an integer");
+            }
+        }
+    }else{
+        if(!isdigit(data[0])){
+            throw invalid_argument("DSString is not an integer");
+        }
+    }
     return atoi(data);
 }
