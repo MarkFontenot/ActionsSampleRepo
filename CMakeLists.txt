@@ -26,4 +26,4 @@ foreach(file IN LISTS input01 input02 input03)
 endforeach()
 
 set(CMAKE_CXX_STANDARD 17)
-add_executable(${EXE_NAME} main.cpp DSVector.h DSString.cpp DSString.h tests.cpp)
+add_executable(${EXE_NAME} main.cpp DSVector.h DSString.cpp DSString.h tests.cpp Indexer.cpp Indexer.h)

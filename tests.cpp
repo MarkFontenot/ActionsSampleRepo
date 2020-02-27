@@ -157,6 +157,12 @@ TEST_CASE("Vector class", "[vector]") {
         REQUIRE((vector3[0] == 1));
         REQUIRE((vector3[5] == 23));
         REQUIRE((vector3[vector3.getSize() - 1] == 76));
+
+        try{
+            vector1[vector1.getSize()];
+        }catch(exception & e){
+            REQUIRE(strcmp(e.what(),(char *)"out of range in [] function") == 0);
+        }
     }
 
 
@@ -441,6 +447,16 @@ TEST_CASE("String class", "[string]"){
         REQUIRE(s[0][1] == 'e');
         REQUIRE(s[4][4] == ' ');
         REQUIRE(s[6][0] == 0);
+        try{
+            s[0][-1];
+        }catch(exception & e){
+            REQUIRE(strcmp(e.what(),(char *)"Index out of range in [] method") == 0);
+        }
+        try{
+            s[0][1000];
+        }catch(exception & e){
+            REQUIRE(strcmp(e.what(),(char *)"Index out of range in [] method") == 0);
+        }
     }
 
     SECTION("getLength function"){
@@ -454,6 +470,21 @@ TEST_CASE("String class", "[string]"){
         REQUIRE((s[0].substring(0, 5) == (char *)"testS"));
         REQUIRE((s[4].substring(0, 4) == (char *)"this"));
         REQUIRE((s[4].substring(1, 4) == (char *)"his"));
+        try{
+            s[4].substring(-1, 4);
+        }catch(exception & e){
+            REQUIRE(strcmp(e.what(),(char *)"First index out of range in substring method") == 0);
+        }
+        try{
+            s[4].substring(1, 1000);
+        }catch(exception & e){
+            REQUIRE(strcmp(e.what(),(char *)"Second index out of range in substring method") == 0);
+        }
+        try{
+            s[4].substring(4, 1);
+        }catch(exception & e){
+            REQUIRE(strcmp(e.what(),(char *)"Invalid indexes in substring method") == 0);
+        }
     }
 
     SECTION("c_str function"){
@@ -477,7 +508,6 @@ TEST_CASE("String class", "[string]"){
         REQUIRE(s[11].getInt() == 123);
         REQUIRE(s[12].getInt() == 0);
         REQUIRE(s[13].getInt() == -5);
-        //REQUIRE(s[1].getInt() == 0);
     }
 
     SECTION("Split"){
