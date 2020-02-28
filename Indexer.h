@@ -11,13 +11,18 @@
 
 class Indexer {
 private:
-    void addPageNumbers(char **);
+
+    //tester functions
+    void addPageNumbers(char *,char *);
+
+    //private functions
     DSVector<DSString> getKeyWords(char *,char []);
     DSVector<DSString> getEachPage(char *, char []);
     DSVector<DSString> getPagesForEachWord(DSVector<DSString>&, DSVector<DSString>&);
+   // DSVector<int> getIntDSVector(DSVector<DSString>);
     void writeToOutputFile(char *, DSVector<DSString>&, DSVector<DSString>&);
 public:
-    //Indexer();
+    //functions
     void indexBook(char*,char*,char*);
 };
 

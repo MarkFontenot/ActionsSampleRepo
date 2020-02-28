@@ -426,3 +426,21 @@ int DSString::getInt() {
     }
     return atoi(data);
 }
+
+/* IsNum
+ * Returns whether or not the DSString is a number
+ */
+bool DSString::isNum() {
+    if(strlen(data) > 1){
+        for(int x = 1; x < strlen(data); x++){
+            if(!isdigit(data[x])){
+                return false;
+            }
+        }
+    }else{
+        if(!isdigit(data[0])){
+            return false;
+        }
+    }
+    return true;
+}

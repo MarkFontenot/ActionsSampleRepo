@@ -366,7 +366,7 @@ TEST_CASE("Vector class", "[vector]") {
 }
 
 TEST_CASE("String class", "[string]"){
-    DSString s[14];
+    DSString s[15];
     s[0] = DSString((char *)"testString");
     s[1] = DSString((char *)"a test string");
     s[2] = DSString((char *)"");
@@ -381,6 +381,7 @@ TEST_CASE("String class", "[string]"){
     s[11] = DSString((char *)"123");
     s[12] = DSString((char *)"0");
     s[13] = DSString((char *)"-5");
+    s[14] = DSString((char *)"-5a");
 
     SECTION("Equality operators"){
         REQUIRE((s[0] == DSString((char *)"testString")));
@@ -518,6 +519,14 @@ TEST_CASE("String class", "[string]"){
         REQUIRE(s[11].getInt() == 123);
         REQUIRE(s[12].getInt() == 0);
         REQUIRE(s[13].getInt() == -5);
+    }
+
+    SECTION("Get int"){
+        REQUIRE(s[11].isNum() == true);
+        REQUIRE(s[12].isNum() == true);
+        REQUIRE(s[13].isNum() == true);
+        REQUIRE(s[0].isNum() == false);
+        REQUIRE(s[14].isNum() == false);
     }
 
     SECTION("Split"){

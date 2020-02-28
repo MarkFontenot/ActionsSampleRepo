@@ -21,8 +21,5 @@ int main(int argc, char **argv) {
     Indexer s;
     s.indexBook(argv[1],argv[2],argv[4]);
 
-
-
-
     return 0;
 }

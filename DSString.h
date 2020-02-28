@@ -41,6 +41,7 @@ public:
     void lowercase();
     DSVector<DSString> split(char []);
     DSString remove(char []);
+    bool isNum();
 
 
 
