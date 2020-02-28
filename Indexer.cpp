@@ -254,7 +254,6 @@ DSVector<DSString> Indexer::getPagesForEachWord(DSVector<DSString> & keyWords, D
  */
 void Indexer::writeToOutputFile(char * fileOutputName, DSVector<DSString>& keyWords, DSVector<DSString>& pagesAppeared){
     //variables
-    DSVector<DSString> eachPage;
     DSString temp;
     DSString word;
     DSString tempString;
@@ -273,27 +272,26 @@ void Indexer::writeToOutputFile(char * fileOutputName, DSVector<DSString>& keyWo
         exit(1);
     }
 
+    //iterates through each key word
     for(int j = 0; j < keyWords.getSize(); j++) {
         temp = pagesAppeared[j];
+
+        //checks if the word was found on any page
         if(!(temp == (char *)"-1")){
-            nextLetter = keyWords[j][0];
-            if(currLetter != nextLetter){
-                currLetter = nextLetter;
-                nextLetter = toupper(nextLetter);
-                fout << "[" << nextLetter << "]" << endl;
-            }
-            word = keyWords[j];
-            lengthOfLine += word.getLength();
-            fout << word;
+            addWordToOutputFile(keyWords[j],lengthOfLine,nextLetter,currLetter,fout);
+//            nextLetter = keyWords[j][0];
+//            if(currLetter != nextLetter){
+//                currLetter = nextLetter;
+//                nextLetter = toupper(nextLetter);
+//                fout << "[" << nextLetter << "]" << endl;
+//            }
+//            word = keyWords[j];
+//            lengthOfLine += word.getLength();
+//            fout << word;
             //cout << temp << endl;
             result = temp.split((char *)", ");
-            intResults.clear();
-            for(int x = 0; x < result.getSize();x++){
-                tempString = result[x];
-                intResults.append(tempString.getInt());
-            }
-            intResults.sort();
-           // intResults = getIntDSVector(result);
+
+            intResults = getIntDSVector(result);
             bool start = true;
             for(int x = 0; x < intResults.getSize();x++){
                 if(start){
@@ -304,8 +302,8 @@ void Indexer::writeToOutputFile(char * fileOutputName, DSVector<DSString>& keyWo
                     start = false;
                 }else {
                     if(lengthOfLine + 2 > 70){
-                        fout << temp << endl;
-                        fout << "    ";
+                        fout << temp << endl << "    ";
+                        //fout << "    ";
                         temp = "";
                         lengthOfLine = 4;
                     }else{
@@ -314,8 +312,8 @@ void Indexer::writeToOutputFile(char * fileOutputName, DSVector<DSString>& keyWo
                     }
                     tempInt = intResults[x];
                     if(lengthOfLine + tempInt.getLength() > 70){
-                        fout << temp << endl;
-                        fout << "    ";
+                        fout << temp << endl << "    ";
+                        //fout << "    ";
                         temp = "";
                         lengthOfLine = 4;
                     }
@@ -330,7 +328,27 @@ void Indexer::writeToOutputFile(char * fileOutputName, DSVector<DSString>& keyWo
     fout.close();
 }
 
-//DSVector<int> Indexer::getIntDSVector(DSVector<DSString>) {
-//   //DSVector<int> intResults;
-//}
+void Indexer::addWordToOutputFile(DSString word, int & lengthOfLine, char & nextLetter, char & currLetter, ofstream & fout) {
+    nextLetter = word[0];
+    if(currLetter != nextLetter){
+        currLetter = nextLetter;
+        nextLetter = toupper(nextLetter);
+        fout << "[" << nextLetter << "]" << endl;
+    }
+    //word = keyWords[j];
+    lengthOfLine += word.getLength();
+    fout << word;
+}
+
+DSVector<int> Indexer::getIntDSVector(DSVector<DSString> & result) {
+
+    DSVector<int> intResults;
+    DSString tempString;
+    for(int x = 0; x < result.getSize();x++){
+        tempString = result[x];
+        intResults.append(tempString.getInt());
+    }
+    intResults.sort();
+    return intResults;
+}
 

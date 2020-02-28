@@ -66,10 +66,12 @@ int DSVector<T>::getSize()const{
 template <class T>
 DSVector<T>::DSVector(const DSVector<T> & input){
     //std::cout << size;
-    data = new T[input.getSize()];
+    data = new T[input.size];
     for(int x = 0; x < size; x++){
         data[x] = input.data[x];
     }
+    size = input.size;
+    cap = input.cap;
 }
 
 /* Assignment Operator
