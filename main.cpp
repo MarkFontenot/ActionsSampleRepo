@@ -16,7 +16,7 @@ int main(int argc, char **argv) {
         return Catch::Session().run();
     }
     Indexer s;
-    s.indexBook(argv[1],argv[2],argv[3]);
+    s.indexBook(argv[2],argv[1],argv[3]);
 
     return 0;
 }
