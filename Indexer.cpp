@@ -307,7 +307,7 @@ void Indexer::addWordToOutputFile(DSString word, int & lengthOfLine, char & next
         nextLetter = toupper(nextLetter);
         fout << "[" << nextLetter << "]" << endl;//adds new letter to index
     }
-    lengthOfLine += word.getLength();
+    lengthOfLine += word.getLength() + 2;
     fout << word << ": ";//adds word to output file
 }
 
@@ -339,8 +339,8 @@ DSVector<int> Indexer::getIntDSVector(DSVector<DSString> & result) {
 void Indexer::addPageToOutputFile(DSString temp, int & lengthOfLine,bool& start, ofstream & fout) {
     //doesn't add , if first page being added
     if(start){
-        //new line if the key word + the page length > 70
-        if(lengthOfLine + temp.getLength() > 70){
+        //new line if the key word + the page length > 69
+        if(lengthOfLine + temp.getLength() > 69){
             fout << endl << "    " << temp;
             lengthOfLine = 4 + temp.getLength();
         }else{
@@ -350,7 +350,7 @@ void Indexer::addPageToOutputFile(DSString temp, int & lengthOfLine,bool& start,
         start = false;
     }else {
         //checks if line wraps
-        if(lengthOfLine + temp.getLength() + 3 > 70){
+        if(lengthOfLine + temp.getLength() + 3 > 69){
             fout << "," << endl << "    ";
             lengthOfLine = 4;
         }else{
