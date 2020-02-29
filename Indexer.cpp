@@ -98,8 +98,6 @@ DSVector<DSString> Indexer::getKeyWords(char * keyWordFileName, char part []){
 
     DSVector<DSString> keyWords;
     DSString temp;
-
-
     char * pch;
 
     //removes all elements in separator
@@ -113,7 +111,6 @@ DSVector<DSString> Indexer::getKeyWords(char * keyWordFileName, char part []){
             temp = temp + pch;
             pch = strtok(NULL, separator);
         }
-
         temp.lowercase();//makes keywords lowercase
 
         //adds keyword to the vector if unique
@@ -140,45 +137,40 @@ DSVector<DSString> Indexer::getEachPage(char * bookFileName, char part []){
         cout << "Error opening input file book";
         exit(1);
     }
-
-
-    DSString read;
+    DSVector<DSString> rawPages;
+    DSString input;
+    DSString pageAt;
+    DSString content;
     bool first = true;
+    bool add;
     char * pch;
     char  separator [] = " .?\"\t!:/\\[]{},;\n";
 
-    DSVector<DSString> rawPages;
-    DSString tempString;
-    DSString pageAt;
-
-    bool add;
-
     //iterates through book file until <-1> is found
-    while(!(tempString == (char *)"<-1>")){
+    while(!(input == (char *)"<-1>")){
         book.getline(part, 500, '\n');
         add = true;
-        tempString = part;
+        input = part;
 
         //checks if new line has the correct angle bracket format and that it is not the
         //first iteration
-        if(tempString[0] == '<' && tempString[tempString.getLength() -1] == '>' && !first) {
+        if(input[0] == '<' && input[input.getLength() -1] == '>' && !first) {
 
             //checks if contents of angle brackets is a number
-            pageAt = tempString.substring(1,tempString.getLength() -1);
+            pageAt = input.substring(1,input.getLength() -1);
             if(pageAt.isNum()){
-                read = read.remove((char *)"'");//removes ' without adding spaces
-                rawPages.append(read);
+                content = content.remove((char *)"'");//removes ' without adding spaces
+                rawPages.append(content);
                 add = false;//doesnt add the current string to the next element
-                read = tempString + (char *)" ";//resets DSString for the next element
+                content = input + (char *)" ";//resets DSString for the next element
             }
         }
-
         //adds line to DSString and removes special chars and white space
         if(add){
             first = false;
             pch = strtok(part,separator);
             while (pch != NULL){
-                read = read + pch + (char *)" ";//adds spaces between each separation
+                content = content + pch + (char *)" ";//adds spaces between each separation
                 pch = strtok(NULL, separator);
             }
         }
@@ -193,16 +185,13 @@ DSVector<DSString> Indexer::getEachPage(char * bookFileName, char part []){
  * Return: DSVector<DSString>
  */
 DSVector<DSString> Indexer::getPagesForEachWord(DSVector<DSString> & keyWords, DSVector<DSString> & rawPages){
-    //variables
     DSVector<DSString> pagesAppeared;
-    DSString temp((char *)"");
-    DSString end((char *)">");
-    DSString tempString((char *)"");
+    DSString allPageNumbers;
+    DSString endBracket((char *)">");
+    DSString pageContents;
     DSString keyWordTemp;
     DSString space((char *)" ");
-    DSString word((char *)"");
-    DSString temp2((char *)"");
-    DSString temp3((char *)": ");
+    DSString pageNumber;
 
     keyWords.sort();//sort keywords
 
@@ -214,27 +203,27 @@ DSVector<DSString> Indexer::getPagesForEachWord(DSVector<DSString> & keyWords, D
     //iterate through each page and check if a key word exists in the page
     for(int x = 0; x < rawPages.getSize(); x++){
         //get the current page and lowercase it
-        tempString = rawPages[x];
-        tempString.lowercase();
+        pageContents = rawPages[x];
+        pageContents.lowercase();
         for(int j = 0; j < keyWords.getSize(); j++){
-            //suround and add spaces to key word
+            //lowercase and surround key word with spaces
             keyWordTemp = space + keyWords[j] + space;
             keyWordTemp.lowercase();
 
             //check if current page contains the keyword
-            if(tempString.contains(keyWordTemp) != -1){
+            if(pageContents.contains(keyWordTemp) != -1){
 
                 //get the page number of the page
-                int lastIndex = tempString.contains(end);
-                temp2 = tempString.substring(1,lastIndex);
+                int lastIndex = pageContents.contains(endBracket);
+                pageNumber = pageContents.substring(1,lastIndex);
 
                 //add the new page to pagesAppeared DSVector
-                temp = pagesAppeared[j];
-                if(temp == (char *)"-1"){
-                    pagesAppeared.edit(temp2,j);//override -1 if first page found
+                allPageNumbers = pagesAppeared[j];
+                if(allPageNumbers == (char *)"-1"){
+                    pagesAppeared.edit(pageNumber,j);//override -1 if first page found
                 } else{
-                    temp = temp + (char *)", " + temp2;
-                    pagesAppeared.edit(temp,j);
+                    allPageNumbers = allPageNumbers + (char *)", " + pageNumber;
+                    pagesAppeared.edit(allPageNumbers,j);
                 }
             }
         }
@@ -253,7 +242,7 @@ DSVector<DSString> Indexer::getPagesForEachWord(DSVector<DSString> & keyWords, D
  * Return: void
  */
 void Indexer::writeToOutputFile(char * fileOutputName, DSVector<DSString>& keyWords, DSVector<DSString>& pagesAppeared){
-    DSString temp;
+    DSString pageNumbers;
     char currLetter;
     char nextLetter;
     DSVector<DSString> result;
@@ -269,20 +258,20 @@ void Indexer::writeToOutputFile(char * fileOutputName, DSVector<DSString>& keyWo
     }
     //iterates through each key word
     for(int j = 0; j < keyWords.getSize(); j++) {
-        temp = pagesAppeared[j];
+        pageNumbers = pagesAppeared[j];
 
         //checks if the word was found on any page
-        if(!(temp == (char *)"-1")){
+        if(!(pageNumbers == (char *)"-1")){
             //adds keyword and character index to output file
             addWordToOutputFile(keyWords[j],lengthOfLine,nextLetter,currLetter,fout);
-            result = temp.split((char *)", ");//splits string containing page numbers
+            result = pageNumbers.split((char *)", ");//splits string containing page numbers
             intResults = getIntDSVector(result);//converts DSVector of DSStrings to DSVector of ints
 
             //iterates through each page in the int DSVector
             bool start = true;
             for(int x = 0; x < intResults.getSize();x++){
-                temp = intResults[x];
-                addPageToOutputFile(temp,lengthOfLine,start,fout);
+                pageNumbers = intResults[x];
+                addPageToOutputFile(pageNumbers,lengthOfLine,start,fout);
             }
             fout << endl;//new line for new word
         }
@@ -336,21 +325,21 @@ DSVector<int> Indexer::getIntDSVector(DSVector<DSString> & result) {
  *
  * Return: void
  */
-void Indexer::addPageToOutputFile(DSString temp, int & lengthOfLine,bool& start, ofstream & fout) {
+void Indexer::addPageToOutputFile(DSString page, int & lengthOfLine,bool& start, ofstream & fout) {
     //doesn't add , if first page being added
     if(start){
         //new line if the key word + the page length > 69
-        if(lengthOfLine + temp.getLength() > 69){
-            fout << endl << "    " << temp;
-            lengthOfLine = 4 + temp.getLength();
+        if(lengthOfLine + page.getLength() > 69){
+            fout << endl << "    " << page;
+            lengthOfLine = 4 + page.getLength();
         }else{
-            fout << temp;
-            lengthOfLine += temp.getLength();
+            fout << page;
+            lengthOfLine += page.getLength();
         }
         start = false;
     }else {
         //checks if line wraps
-        if(lengthOfLine + temp.getLength() + 3 > 69){
+        if(lengthOfLine + page.getLength() + 3 > 69){
             fout << "," << endl << "    ";
             lengthOfLine = 4;
         }else{
@@ -358,8 +347,8 @@ void Indexer::addPageToOutputFile(DSString temp, int & lengthOfLine,bool& start,
             lengthOfLine += 2;
         }
         //adds page to line length and output file
-        lengthOfLine += temp.getLength();
-        fout << temp;
+        lengthOfLine += page.getLength();
+        fout << page;
     }
 }
 
