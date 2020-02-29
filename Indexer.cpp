@@ -325,7 +325,7 @@ DSVector<int> Indexer::getIntDSVector(DSVector<DSString> & result) {
 
 /* AddPageToOutputFile
  * Adds the word passed in to the output file. Adds commas between numbers.
- * Wraps text at 70 chars per line.
+ * Wraps text at 69 chars per line. (Instructions said "The line should wrap before 70 characters")
  *
  * Return: void
  */
@@ -342,7 +342,7 @@ void Indexer::addPageToOutputFile(DSString page, int & lengthOfLine,bool& start,
         }
         start = false;
     }else {
-        //checks if line wraps
+        //checks if line needs to wrap
         if(lengthOfLine + page.getLength() + 3 > 69){
             fout << "," << endl << "    ";
             lengthOfLine = 4;

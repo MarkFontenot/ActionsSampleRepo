@@ -137,7 +137,6 @@ TEST_CASE("Vector class", "[vector]") {
         REQUIRE((vector4.find((char*)"a test strin") == false));
     }
 
-        //DONE
     SECTION("[] Operator") {
         DSString temp((char *) "testString");
         REQUIRE((vector1[0] == temp));
@@ -170,7 +169,6 @@ TEST_CASE("Vector class", "[vector]") {
         }
     }
 
-
     SECTION("== operator"){
         DSVector<DSString> temp;
         DSVector<DSString> temp1;
@@ -188,10 +186,8 @@ TEST_CASE("Vector class", "[vector]") {
         DSVector<char *> temp3;
         temp3 = vector4;
         REQUIRE((vector4 == temp3));
-
-
     }
-    //DONE
+
     SECTION("Get size function") {
         REQUIRE((vector1.getSize() == 10));
         REQUIRE((vector2.getSize() == 11));
@@ -266,7 +262,6 @@ TEST_CASE("Vector class", "[vector]") {
         DSVector<DSString> tempVec;
         tempVec.sort();
         REQUIRE(tempVec.isEmpty() == true);
-
     }
 
     SECTION("Remove at"){
@@ -331,10 +326,7 @@ TEST_CASE("Vector class", "[vector]") {
         REQUIRE((vectChar.getSize() == 0));
     }
 
-
-        //DONE
     SECTION("Edit"){
-
         DSString str;
         str = "changed";
         vector1.edit(str,0);
@@ -366,7 +358,7 @@ TEST_CASE("Vector class", "[vector]") {
 }
 
 TEST_CASE("String class", "[string]"){
-    DSString s[15];
+    DSString s[16];
     s[0] = DSString((char *)"testString");
     s[1] = DSString((char *)"a test string");
     s[2] = DSString((char *)"");
@@ -382,6 +374,7 @@ TEST_CASE("String class", "[string]"){
     s[12] = DSString((char *)"0");
     s[13] = DSString((char *)"-5");
     s[14] = DSString((char *)"-5a");
+    s[15] = DSString((char *)"a5");
 
     SECTION("Equality operators"){
         REQUIRE((s[0] == DSString((char *)"testString")));
@@ -525,6 +518,7 @@ TEST_CASE("String class", "[string]"){
         REQUIRE(s[13].isNum() == true);
         REQUIRE(s[0].isNum() == false);
         REQUIRE(s[14].isNum() == false);
+        REQUIRE(s[15].isNum() == false);
     }
 
     SECTION("Split"){

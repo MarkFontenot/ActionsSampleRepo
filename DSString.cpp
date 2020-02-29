@@ -414,13 +414,18 @@ int DSString::getInt() {
 bool DSString::isNum() {
     //is DSString longer than 1
     if(strlen(data) > 1){
-        //ignore first char b/c could be negative sign
-        for(int x = 1; x < strlen(data); x++){
+        //checks if first char is a negative sign or a digit
+        if(data[0] != '-' && !isdigit(data[0])) {
+            return false;
+        }
+        //ignore first char b/c already checked
+        for (int x = 1; x < strlen(data); x++) {
             //if any char is not a digit
-            if(!isdigit(data[x])){
+            if (!isdigit(data[x])) {
                 return false;
             }
         }
+
     }else{
         //is only char in DSString not a digit
         if(!isdigit(data[0])){
