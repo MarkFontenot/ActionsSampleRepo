@@ -300,8 +300,37 @@ void Indexer::addWordToOutputFile(DSString word, int & lengthOfLine, char & next
         nextLetter = toupper(nextLetter);
         fout << "[" << nextLetter << "]" << endl;//adds new letter to index
     }
-    lengthOfLine += word.getLength() + 2;
-    fout << word << ": ";//adds word to output file
+    DSString temp;
+
+    //if the key word needs to wrap
+    if(word.getLength() + 1 > 69){
+        //assume there is white space (no single word can be 69+ chars
+        DSVector splitWords = word.split((char *)" ");
+
+        //add first word to file
+        temp = splitWords[0];
+        fout << temp;
+        lengthOfLine += temp.getLength();
+
+        //add the rest of the words to file
+        for(int x = 1; x < splitWords.getSize(); x++) {
+            //wrap if adding the word makes input file go over 69
+            if (lengthOfLine + splitWords[x].getLength() + 1 <= 69) {
+                temp = splitWords[x];
+                fout << " " << temp;
+                lengthOfLine += splitWords[x].getLength() + 1;
+            } else {
+                fout << endl << "    " << temp;
+                lengthOfLine = splitWords[x].getLength() + 4;
+            }
+        }
+        fout << ": ";
+        lengthOfLine += word.getLength() + 2;
+    }else{
+        lengthOfLine += word.getLength() + 2;
+        fout << word << ": ";//adds word to output file
+    }
+
 }
 
 /* getIntDSVector
