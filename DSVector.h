@@ -53,6 +53,7 @@ DSVector<T>::DSVector() {
     cap = 10;
     size = 0;
 }
+
 /*getSize
  * Returns the size of the vector.
  *
@@ -84,7 +85,7 @@ DSVector<T>::DSVector(const DSVector<T> & input){
 }
 
 /* Assignment Operator
- * Allows a vector to be assigned to another vector
+ * Allows a vector to be assigned to another vector.
  *
  * Return: DSVector<T>&
  */
