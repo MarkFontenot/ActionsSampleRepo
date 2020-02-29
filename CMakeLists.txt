@@ -13,7 +13,6 @@ set (EXE_NAME AutoIndexer)
 # if you need more, add them here and in the foreach stmt below.
 set (input01 "wordsInput.txt")
 set (input02 "bookInput.txt")
-set (input03 "rawBook.txt")
 
 
 
@@ -21,7 +20,7 @@ set (input03 "rawBook.txt")
 ##########################################
 
 # Copy data files to build dir
-foreach(file IN LISTS input01 input02 input03)
+foreach(file IN LISTS input01 input02)
     configure_file(${file} ${file} COPYONLY)
 endforeach()
 

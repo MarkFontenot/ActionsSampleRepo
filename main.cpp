@@ -1,7 +1,4 @@
 #include <iostream>
-#include <fstream>
-#include "DSVector.h"
-#include "DSString.h"
 
 #define CATCH_CONFIG_RUNNER
 #include "catch.hpp"
@@ -19,7 +16,7 @@ int main(int argc, char **argv) {
         return Catch::Session().run();
     }
     Indexer s;
-    s.indexBook(argv[1],argv[2],argv[4]);
+    s.indexBook(argv[1],argv[2],argv[3]);
 
     return 0;
 }
