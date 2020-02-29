@@ -326,6 +326,10 @@ DSString &DSString::operator=(const int input) {
 
     //check num digits in input
     int n = input;
+    //checks if number is negative
+    if(input < 0){
+        n = input * -1;
+    }
     int count = 0;
     while (n != 0) {
         n = n / 10;
@@ -335,16 +339,32 @@ DSString &DSString::operator=(const int input) {
         count = 1;
     }
 
+    int lastSpot = 0;
+
+    //adds extra slot for neg number
+    if(input < 0){
+        count++;
+        lastSpot = 1;
+    }
+
 
     data = new char[count + 1];
 
     //inputs the int into data as a char
     int number = input;
-    for (int i = count-1; i >= 0; i--) {
+    if (input < 0){
+        number = input * -1;
+    }
+    for (int i = count-1; i >= lastSpot; i--) {
         int x = (number % 10);
         char c = '0' + x;//converts int to char
         data[i] = c;
         number /= 10;
+    }
+
+    //adds negative to front if number is negative
+    if(input < 0){
+        data[0] = '-';
     }
 
     //adds null terminating character

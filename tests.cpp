@@ -403,6 +403,9 @@ TEST_CASE("String class", "[string]"){
         REQUIRE((str == (char *)"10"));
         str = 0;
         REQUIRE((str == (char *)"0"));
+        str = -5;
+        REQUIRE((str == (char *)"-5"));
+
     }
 
     SECTION("Addition operator"){
