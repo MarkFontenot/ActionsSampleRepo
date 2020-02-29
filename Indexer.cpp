@@ -253,25 +253,20 @@ DSVector<DSString> Indexer::getPagesForEachWord(DSVector<DSString> & keyWords, D
  * Return: void
  */
 void Indexer::writeToOutputFile(char * fileOutputName, DSVector<DSString>& keyWords, DSVector<DSString>& pagesAppeared){
-    //variables
     DSString temp;
-    DSString word;
-    DSString tempString;
     char currLetter;
     char nextLetter;
-    DSString tempInt;
     DSVector<DSString> result;
     DSVector<int> intResults;
     int lengthOfLine = 0;
 
-    //opening outputfile
+    //opening output file
     ofstream fout;
     fout.open(fileOutputName);
     if(!fout.is_open()){
         cout << "Error opening output file" << endl;
         exit(1);
     }
-
     //iterates through each key word
     for(int j = 0; j < keyWords.getSize(); j++) {
         temp = pagesAppeared[j];
@@ -280,61 +275,20 @@ void Indexer::writeToOutputFile(char * fileOutputName, DSVector<DSString>& keyWo
         if(!(temp == (char *)"-1")){
             //adds keyword and character index to output file
             addWordToOutputFile(keyWords[j],lengthOfLine,nextLetter,currLetter,fout);
-//            nextLetter = keyWords[j][0];
-//            if(currLetter != nextLetter){
-//                currLetter = nextLetter;
-//                nextLetter = toupper(nextLetter);
-//                fout << "[" << nextLetter << "]" << endl;
-//            }
-//            word = keyWords[j];
-//            lengthOfLine += word.getLength();
-//            fout << word;
-            //cout << temp << endl;
+            result = temp.split((char *)", ");//splits string containing page numbers
+            intResults = getIntDSVector(result);//converts DSVector of DSStrings to DSVector of ints
 
-            //splits string containing page numbers
-            result = temp.split((char *)", ");
-
-            //converts DSVector of DSStrings to DSVector of ints
-            intResults = getIntDSVector(result);
-
-            bool start = true;
             //iterates through each page in the int DSVector
+            bool start = true;
             for(int x = 0; x < intResults.getSize();x++){
-                tempInt = intResults[x];
-                temp = tempInt;
-                //adds : if its the first page being added
-                if(start){
-                    if(lengthOfLine + temp.getLength() > 70){
-                        fout << endl << "    " << temp;
-                        lengthOfLine = 4 + temp.getLength();
-                    }else{
-                        fout << temp;
-                        lengthOfLine += temp.getLength();
-                    }
-                    start = false;
-
-                }else {
-
-                    //checks if line wraps
-                    if(lengthOfLine + tempInt.getLength() + 3 > 70){
-                        cout << "new line"<< endl;
-                        fout << "," << endl << "    ";
-                        //fout << "    ";
-                        //temp = "";
-                        lengthOfLine = 4;
-                    }else{
-                        fout << ", ";
-                        lengthOfLine += 2;
-                    }
-                    lengthOfLine += temp.getLength();
-                    fout << temp;
-                }
+                temp = intResults[x];
+                addPageToOutputFile(temp,lengthOfLine,start,fout);
             }
-            fout << endl;
+            fout << endl;//new line for new word
         }
-        lengthOfLine = 0;
+        lengthOfLine = 0;//resets line length
     }
-    fout.close();
+    fout.close();//close file
 }
 
 /* addWordToOutputFile
@@ -345,15 +299,16 @@ void Indexer::writeToOutputFile(char * fileOutputName, DSVector<DSString>& keyWo
  * Return: void
  */
 void Indexer::addWordToOutputFile(DSString word, int & lengthOfLine, char & nextLetter, char & currLetter, ofstream & fout) {
-    nextLetter = word[0];
+    nextLetter = word[0];//gets first letter of word
+
+    //checks if first letter of word is new
     if(currLetter != nextLetter){
         currLetter = nextLetter;
         nextLetter = toupper(nextLetter);
-        fout << "[" << nextLetter << "]" << endl;
+        fout << "[" << nextLetter << "]" << endl;//adds new letter to index
     }
-    //word = keyWords[j];
     lengthOfLine += word.getLength();
-    fout << word << ": ";
+    fout << word << ": ";//adds word to output file
 }
 
 /* getIntDSVector
@@ -363,14 +318,50 @@ void Indexer::addWordToOutputFile(DSString word, int & lengthOfLine, char & next
  * Return: DSVector<int>
  */
 DSVector<int> Indexer::getIntDSVector(DSVector<DSString> & result) {
-
     DSVector<int> intResults;
     DSString tempString;
+
+    //iterates through results and changes DSString to int
     for(int x = 0; x < result.getSize();x++){
         tempString = result[x];
         intResults.append(tempString.getInt());
     }
-    intResults.sort();
+    intResults.sort();//sorts int vector from low to high
     return intResults;
 }
+
+/* AddPageToOutputFile
+ * Adds the word passed in to the output file. Adds commas between numbers.
+ * Wraps text at 70 chars per line.
+ *
+ * Return: void
+ */
+void Indexer::addPageToOutputFile(DSString temp, int & lengthOfLine,bool& start, ofstream & fout) {
+    //doesn't add , if first page being added
+    if(start){
+        //new line if the key word + the page length > 70
+        if(lengthOfLine + temp.getLength() > 70){
+            fout << endl << "    " << temp;
+            lengthOfLine = 4 + temp.getLength();
+        }else{
+            fout << temp;
+            lengthOfLine += temp.getLength();
+        }
+        start = false;
+    }else {
+        //checks if line wraps
+        if(lengthOfLine + temp.getLength() + 3 > 70){
+            fout << "," << endl << "    ";
+            lengthOfLine = 4;
+        }else{
+            fout << ", ";
+            lengthOfLine += 2;
+        }
+        //adds page to line length and output file
+        lengthOfLine += temp.getLength();
+        fout << temp;
+    }
+}
+
+
 

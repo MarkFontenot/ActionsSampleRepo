@@ -21,6 +21,7 @@ private:
     DSVector<DSString> getPagesForEachWord(DSVector<DSString>&, DSVector<DSString>&);
     void addWordToOutputFile(DSString,int&,char&,char&,ofstream&);
     DSVector<int> getIntDSVector(DSVector<DSString> &);
+    void addPageToOutputFile(DSString,int&,bool&,ofstream&);
     void writeToOutputFile(char *, DSVector<DSString>&, DSVector<DSString>&);
 public:
     //functions
