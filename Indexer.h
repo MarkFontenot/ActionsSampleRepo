@@ -11,7 +11,6 @@
 
 class Indexer {
 private:
-
     //tester functions
     void addPageNumbers(char *,char *);
 
@@ -24,7 +23,7 @@ private:
     void addPageToOutputFile(DSString,int&,bool&,ofstream&);
     void writeToOutputFile(char *, DSVector<DSString>&, DSVector<DSString>&);
 public:
-    //functions
+    //main function
     void indexBook(char*,char*,char*);
 };
 

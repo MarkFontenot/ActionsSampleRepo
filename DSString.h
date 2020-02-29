@@ -26,7 +26,6 @@ public:
     DSString &operator=(const char*);//assignment operator
     DSString &operator=(const int);
     DSString operator+(DSString rhs);//addition operator
-  //  DSString operator+(char rhs);//addition operator
     bool operator<(const DSString&)const;//less than operator
     bool operator>(const DSString&)const;//greater than operator
     bool operator==(const DSString&);//equals operator
@@ -38,12 +37,10 @@ public:
     int getInt();
     char operator[](int);
     DSString substring(int, int);
-    void lowercase();
-    DSVector<DSString> split(char []);
     DSString remove(char []);
+    DSVector<DSString> split(char []);
+    void lowercase();
     bool isNum();
-
-
 
     //getters
     int getLength();

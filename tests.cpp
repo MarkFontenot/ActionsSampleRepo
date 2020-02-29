@@ -417,13 +417,6 @@ TEST_CASE("String class", "[string]"){
         REQUIRE((s[6] + s[6] == (char *)""));
         REQUIRE((s[5] + s[6] ==DSString((char *)"\n")));
         REQUIRE((s[0] + s[1] + s[2] == (char *)"testStringa test string"));
-
-        //char
-        char c;
-        //c = ' ';
-        //REQUIRE(((s[4] + c) == (char *)"this is an uppercase string "));
-        //c = 'h';
-        //REQUIRE((s[4] + c == (char *)"this is an uppercase stringh"));
     }
 
     SECTION("Greater than operator"){
@@ -519,6 +512,11 @@ TEST_CASE("String class", "[string]"){
         REQUIRE(s[11].getInt() == 123);
         REQUIRE(s[12].getInt() == 0);
         REQUIRE(s[13].getInt() == -5);
+        try{
+            s[0].getInt();
+        }catch(exception & e){
+            REQUIRE(strcmp(e.what(),(char *)"DSString is not an integer") == 0);
+        }
     }
 
     SECTION("Get int"){
@@ -561,8 +559,6 @@ TEST_CASE("String class", "[string]"){
 
     SECTION("Remove"){
         char temp []= " ";
-
-
         DSString temp2;
         temp2 = (char *)"splitsplitsplit";
         REQUIRE((s[7].remove(temp) == temp2));

@@ -14,6 +14,8 @@ private:
     T * data;
     int size;
     int cap;
+
+    //private function
     void resize();
 public:
     DSVector<T>();//default constructor
@@ -26,14 +28,16 @@ public:
     T operator[](int);//index
 
     //special functions
-    void edit(T, int);//edit an element
-    void sort();//sort the vector
-    void append(T);//add an element
-    void removeAt(int);//remove an element
-    void clear();//clear
-    int getSize()const;//get size
-    bool isEmpty();//check if empty
-    bool find(T);//find
+    void edit(T, int);
+    void sort();
+    void append(T);
+    void removeAt(int);
+    void clear();
+    bool isEmpty();
+    bool find(T);
+
+    //getters
+    int getSize()const;
 };
 
 /*Constructor
@@ -44,6 +48,7 @@ public:
  */
 template <class T>
 DSVector<T>::DSVector() {
+    //dynamically allocates array of type T w/ size 10
     data = new T[10];
     cap = 10;
     size = 0;
@@ -65,11 +70,15 @@ int DSVector<T>::getSize()const{
  */
 template <class T>
 DSVector<T>::DSVector(const DSVector<T> & input){
-    //std::cout << size;
+    //dynamically allocates array of type T w/ size of input
     data = new T[input.size];
+
+    //copies data from input to current DSVector
     for(int x = 0; x < size; x++){
         data[x] = input.data[x];
     }
+
+    //copies size and cap from input
     size = input.size;
     cap = input.cap;
 }
@@ -81,11 +90,15 @@ DSVector<T>::DSVector(const DSVector<T> & input){
  */
 template <class T>
 DSVector<T>& DSVector<T>::operator=(const DSVector<T> & input) {
-    delete[] data;
-    data = new T[input.cap];
+    delete[] data;//deallocates data
+    data = new T[input.cap];//dynamically allocates array of type T w/ size 10
+
+    //copies data from input to current DSVector
     for(int x = 0; x < input.size; x++){
         data[x] = input.data[x];
     }
+
+    //copies size and cap from input
     size = input.size;
     cap = input.cap;
     return *this;
@@ -98,6 +111,7 @@ DSVector<T>& DSVector<T>::operator=(const DSVector<T> & input) {
  */
 template <class T>
 bool DSVector<T>::isEmpty(){
+    //checks size of array
     if(size == 0){
         return true;
     }else{
@@ -113,20 +127,8 @@ bool DSVector<T>::isEmpty(){
  */
 template <class T>
 DSVector<T>::~DSVector() {
-    //if(size != 0){
     delete [] data;
-    //}
 }
-
-//template <class T>
-//bool DSVector<T>::operator<(const DSVector<T> & r) const {
-//    if(!data[0] < r.data){
-//        return false;
-//    }else{
-//        return true;
-//    }
-//}
-
 
 /*Append
  * Adds an element at the end of the vector.
@@ -134,16 +136,15 @@ DSVector<T>::~DSVector() {
  * Return: void
  */
 template <class T>
-void DSVector<T>::append(T x) {
-
+void DSVector<T>::append(T input) {
     //checks if size is at capacity of vector
     if(size == cap){
         resize();
-        data[size] = x;
+        data[size] = input;//adds input to data
     }else{
-        data[size] = x;
+        data[size] = input;//adds input to data
     }
-    size += 1;
+    size += 1;//increases size
 }
 
 /*Clear
@@ -155,7 +156,7 @@ template <class T>
 void DSVector<T>::clear() {
     delete [] data;//clears data
 
-    //creates new dynamically allocted array and resets cap and size
+    //creates new dynamically allocated array and resets cap and size
     data = new T[10];
     cap = 10;
     size = 0;
@@ -169,12 +170,11 @@ void DSVector<T>::clear() {
  */
 template <class T>
 void DSVector<T>::edit(T input, int index) {
-
     //index out of bounds check
     if(index < 0 || index > size - 1){
         throw out_of_range("out of range in edit function");
     }
-    data[index] = input;
+    data[index] = input;//changes value at desired index
 }
 
 
@@ -185,15 +185,12 @@ void DSVector<T>::edit(T input, int index) {
  * Return: T
  */
 template <class T>
-T DSVector<T>::operator[](int x) {
-
+T DSVector<T>::operator[](int input) {
     //index out of bounds checking
-    if(x < 0 || x > size - 1){
+    if(input < 0 || input > size - 1){
         throw out_of_range("out of range in [] function");
-    }else{
-        return data[x];
     }
-
+    return data[input];//returns data at desired index
 }
 
 /* Find
@@ -203,7 +200,6 @@ T DSVector<T>::operator[](int x) {
  */
 template <class T>
 bool DSVector<T>::find(T input) {
-
     //iterates through vector checking if an element is equal to the input
     for(int x = 0; x < size; x++){
         if(data[x] == input){
@@ -214,22 +210,21 @@ bool DSVector<T>::find(T input) {
 }
 
 /* Sort
- * Sorts the vector from least to greatest value
+ * Sorts the vector from least to greatest value using bubble sort.
  *
  * Return: void
  */
 template <class T>
-void DSVector<T>::sort() {
+void DSVector<T>::sort(){
+    //bubble sort
     T temp;
-    for(int i=0;i<size;i++)
-    {
-        for(int j=i+1;j<size;j++)
-        {
-            if(data[i]>data[j])
-            {
-                temp  =data[i];
-                data[i]=data[j];
-                data[j]=temp;
+    for(int i = 0; i < size; i++){
+        for(int j = i + 1; j < size; j++){
+            //swaps if lhs is smaller than rhs
+            if(data[i] > data[j]){
+                temp  = data[i];
+                data[i] = data[j];
+                data[j] = temp;
             }
         }
     }
@@ -245,14 +240,14 @@ void DSVector<T>::sort() {
  */
 template <class T>
 bool DSVector<T>::operator==(const DSVector<T> & input) {
-    //returns false if vectors are not the same size
+    //if vectors are not the same size
     if(input.size != size){
         return false;
     }
 
     //iterates through data
     for(int x = 0; x < size; x++){
-        //returns false once one value of the lhs is not = to the rhs
+        //returns false once the lhs is not = to the rhs
         if(!(data[x] == input.data[x])){
             return false;
         }
@@ -278,7 +273,6 @@ void DSVector<T>::removeAt(int input) {
 
     //iterates through data
     for(int x = 0; x < size;x++){
-
         //adds element to newData when we are not at the index requested
         if(x != input){
             newData[counter] = data[x];
@@ -288,8 +282,8 @@ void DSVector<T>::removeAt(int input) {
     delete [] data;//deallocates old data
     size = size - 1;//lowers size by one
     data = newData;//assigns newData to data
-
 }
+
 //private
 /* Resize
  * Private function used to double the capacity of the vector,
@@ -300,12 +294,14 @@ void DSVector<T>::removeAt(int input) {
  */
 template <class T>
 void DSVector<T>::resize(){
+    //dynamically allocates array of type T w/ size * 2
     T * temp = new T[cap * 2];
+    //copies data from old data to new data
     for(int i = 0; i < cap; i++){
         temp[i] = data[i];
     }
-    cap *= 2;
-    delete [] data;
-    data = temp;
+    cap *= 2;//increases capacity
+    delete [] data;//deallocates old data
+    data = temp;//assigns data to new larger array
 }
 #endif //INC_20S_PA02_AUTOINDEXER_DSVECTOR_H

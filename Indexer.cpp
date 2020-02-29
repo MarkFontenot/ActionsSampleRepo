@@ -40,7 +40,7 @@ void Indexer::indexBook(char * keyWordsFileName, char * bookFileName,char * outp
  * Return: void
  */
 void Indexer::addPageNumbers(char * rawBookFileName,char * bookInputFileName){
-
+    //open book
     ifstream rawBook;
     rawBook.open(rawBookFileName);
     if(!rawBook){
@@ -48,20 +48,24 @@ void Indexer::addPageNumbers(char * rawBookFileName,char * bookInputFileName){
         exit(1);
     }
     char part [100];
-
+    //open output fil
     ofstream finalBook;
     finalBook.open(bookInputFileName);
 
     int counter = 0;
     int pageNumber = 2;
+
+    //add initial 1
     finalBook << "<";
     finalBook << 1;
     finalBook << "> " << endl;
     while(!rawBook.eof()){
-        rawBook.getline(part,90,'\n');
+        //write each line to the output file
+        rawBook.getline(part,500,'\n');
         finalBook << part << endl;
-        cout << part << endl;
         counter++;
+
+        //every 10 lines add a page break
         if(counter == 10){
             finalBook << endl;
             finalBook << "<";
@@ -72,6 +76,7 @@ void Indexer::addPageNumbers(char * rawBookFileName,char * bookInputFileName){
             counter = 0;
         }
     }
+    //add final page indicator
     finalBook << endl;
     finalBook << "<";
     finalBook << -1;
@@ -152,10 +157,8 @@ DSVector<DSString> Indexer::getEachPage(char * bookFileName, char part []){
         add = true;
         input = part;
 
-        //checks if new line has the correct angle bracket format and that it is not the
-        //first iteration
+        //checks if new line has correct angle bracket format and is not the first iteration
         if(input[0] == '<' && input[input.getLength() -1] == '>' && !first) {
-
             //checks if contents of angle brackets is a number
             pageAt = input.substring(1,input.getLength() -1);
             if(pageAt.isNum()){
@@ -175,6 +178,7 @@ DSVector<DSString> Indexer::getEachPage(char * bookFileName, char part []){
             }
         }
     }
+    book.close();//close file
     return rawPages;
 }
 

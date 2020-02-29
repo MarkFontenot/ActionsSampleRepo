@@ -13,7 +13,6 @@ using namespace std;
 /*Default constructor
  * This constructor simply assigns data to a null terminating character.
  *
- * Params: N/A
  * Return: N/A
  */
 DSString::DSString(){
@@ -25,7 +24,6 @@ DSString::DSString(){
  * This constructor recieves a char * and creates a DSString
  * with the char * as its contents.
  *
- * Params: char *
  * Return: N/A
  */
 DSString::DSString(char* input){
@@ -39,7 +37,6 @@ DSString::DSString(char* input){
 /*Copy construcor
  * The copy constructor creates a copy of DSString.
  *
- * Params: DSString
  * Return: N/A
  */
 DSString::DSString(const DSString & input) {
@@ -51,7 +48,6 @@ DSString::DSString(const DSString & input) {
 /*Destructor
  * Deallocates memory
  *
- * Params: N/A
  * Return: N/A
  */
 DSString::~DSString(){
@@ -62,7 +58,6 @@ DSString::~DSString(){
  * This method checks if the current DSString contains the parameter passed in.
  * And returns the index at which is was found.
  *
- * Params: DSString
  * Return: int
  */
 int DSString::contains(DSString & input) {
@@ -114,7 +109,6 @@ int DSString::contains(DSString & input) {
 /* getLength
  * Gets the length of the data
  *
- * Params: N/A
  * Return: int
  */
 int DSString::getLength()  {
@@ -125,7 +119,6 @@ int DSString::getLength()  {
  * This method assigns the right side to the left side.
  * This method is for assigning a DSString to a DSString
  *
- * Params: DSString
  * Return: DSString
  */
 DSString& DSString::operator=(const DSString& input) {
@@ -142,7 +135,6 @@ DSString& DSString::operator=(const DSString& input) {
  * This method assigns the right side to the left side.
  * This method is for assigning a char * to a DSString
  *
- * Params: char *
  * Return: DSString
  */
 DSString& DSString::operator=(const char * input) {
@@ -158,7 +150,6 @@ DSString& DSString::operator=(const char * input) {
 /* Addition operator
  * This method concatinates the left side with the right side of the + operator.
  *
- * Params: DSString
  * Return: DSString
  */
 DSString DSString::operator +(const DSString rhs){
@@ -183,7 +174,6 @@ DSString DSString::operator +(const DSString rhs){
 /* Equals operator
  * This method checks if 2 DSStrings are equal.
  *
- * Params: DSString
  * Return: bool
  */
 bool DSString::operator  == (const DSString& input){
@@ -223,7 +213,6 @@ bool DSString::operator > (const DSString& comp) const
 /* Ostream operator
  * This method allows DSString to be printed through the ostream operator.
  *
- * Params: ostream, DSString
  * Return: ostream
  */
 ostream& operator << (ostream& oStreamIn, DSString & input){
@@ -234,7 +223,6 @@ ostream& operator << (ostream& oStreamIn, DSString & input){
 /* Istream operator
  * This operator allows DSString to be instantiated through the istream operator.
  *
- * Params: istream, DSString
  * Return: istream
  */
 istream& operator >>(istream& inStreamIn, DSString& input){
@@ -254,7 +242,6 @@ istream& operator >>(istream& inStreamIn, DSString& input){
  * This method allows DSStrings to be substringed.
  * Similar to regular substrings the last index is NOT inclusive.
  *
- * Params: int, int
  * Return: DSString
  */
 DSString DSString::substring(int firstIndex, int secondIndex) {
@@ -305,7 +292,6 @@ char * DSString::c_str() {
  * This operator allows the user to use the index operator
  * in order to get a certain index of the DSString.
  *
- * Params: int
  * Return: char
  */
 char DSString::operator[](int x) {
@@ -321,7 +307,6 @@ char DSString::operator[](int x) {
 /*lowercase
  * This method makes every character in the DSString lowercase
  *
- * Params: N/A
  * Return: void
  */
 void DSString::lowercase() {
@@ -378,12 +363,12 @@ DSVector<DSString> DSString::split(char splitter []) {
     DSVector<DSString> result;
     DSString temp;
 
-    //seperates DSString on input
+    //separates DSString on input
     char *token = strtok(data, splitter);
     while (token != NULL)
     {
         temp = token;
-        result.append(temp);//appends seperated element to vector
+        result.append(temp);//appends separated element to vector
         token = strtok(NULL, splitter);
     }
     return result;
@@ -398,46 +383,46 @@ DSVector<DSString> DSString::split(char splitter []) {
 DSString DSString::remove(char input []){
     DSString temp((char*)"");
 
-    //seperates DSString on input
+    //separates DSString on input
     char * token = strtok(data, input);
     while(token != NULL){
-        temp = temp + token;//adds each element seperated to temp
+        temp = temp + token;//adds each element separated to temp
         token = strtok(NULL, input);
     }
     return temp;
 }
 
 /* GetInt
- * Returns data in the DSString as an int. Throws error if a non digit char is present.
+ * Returns data in the DSString as an int.
+ * Throws error if a non digit char is present.
  *
  * Return: int
  */
 int DSString::getInt() {
-    if(strlen(data) > 1){
-        for(int x = 1; x < strlen(data); x++){
-            if(!isdigit(data[x])){
-                throw invalid_argument("DSString is not an integer");
-            }
-        }
-    }else{
-        if(!isdigit(data[0])){
-            throw invalid_argument("DSString is not an integer");
-        }
+    //checks if DSString is a num
+    if(!this->isNum()){
+        throw invalid_argument("DSString is not an integer");
     }
     return atoi(data);
 }
 
 /* IsNum
- * Returns whether or not the DSString is a number
+ * Returns whether or not the DSString is a number.
+ *
+ * Return: bool
  */
 bool DSString::isNum() {
+    //is DSString longer than 1
     if(strlen(data) > 1){
+        //ignore first char b/c could be negative sign
         for(int x = 1; x < strlen(data); x++){
+            //if any char is not a digit
             if(!isdigit(data[x])){
                 return false;
             }
         }
     }else{
+        //is only char in DSString not a digit
         if(!isdigit(data[0])){
             return false;
         }
