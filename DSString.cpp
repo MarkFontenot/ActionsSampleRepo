@@ -1,7 +1,6 @@
 //
 // Created by Jonathan Ebrahimian on 2/13/20.
 //
-    
 #include "DSString.h"
 #include <iostream>
 #include <vector>
